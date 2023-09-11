@@ -6,5 +6,7 @@
         <file>Imgs/info.png</file>
         <file>Imgs/next.png</file>
         <file>Imgs/save.png</file>
+        <file>Imgs/print.png</file>
+        <file>Imgs/resize.png</file>
     </qresource>
 </RCC>

@@ -36,6 +36,8 @@ class WindowNext : public QDialog
         QLabel      *_label1;
 
         QToolButton *_buttonSave;
+        QToolButton *_buttonPrint;
+        QToolButton *_buttonResize;
 };
 
 #endif // WINDOWNEXT_HPP

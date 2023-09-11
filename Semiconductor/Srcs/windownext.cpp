@@ -15,8 +15,11 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_label1->setGeometry(10, 40, 300, 30);
     this->_label1->setStyleSheet("color: black; font-size: 20px; font-weight: bold;");
 
-    this->_buttonSave = this->createButton(_groupBox1, ":/Imgs/save.png", 5, 1, 28, 28, "save", \
+    this->_buttonSave = this->createButton(_groupBox1, ":/Imgs/save.png", 5, 3, 24, 24, "save", \
                                            &WindowNext::buttonSaveAction);
+    this->_buttonPrint = this->createButton(_groupBox1, ":/Imgs/print.png", 45, 3, 24, 24, "print", nullptr);
+    _buttonPrint->setEnabled(false);
+    this->_buttonResize = this->createButton(_groupBox1, ":/Imgs/resize.png", 85, 3, 24, 24, "resize", nullptr);
 }
 
 WindowNext::~WindowNext()
@@ -29,6 +32,12 @@ WindowNext::~WindowNext()
 
     delete _buttonSave;
     _buttonSave = nullptr;
+
+    delete _buttonPrint;
+    _buttonPrint = nullptr;
+
+    delete _buttonResize;
+    _buttonResize = nullptr;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
