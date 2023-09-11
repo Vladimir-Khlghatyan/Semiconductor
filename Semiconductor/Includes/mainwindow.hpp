@@ -24,8 +24,8 @@ class MainWindow : public QMainWindow
         ~MainWindow();
 
         void    putWindowOnScreen(int windowWidth, int windowHeight);
-        void    createButtonAbout(int x, int y);    // with coordinates (x, y)
-        void    createButtonNext(int x, int y);     // with coordinates (x, y)
+        void    createButtonAbout(int ax, int ay);    // with coordinates (ax, ay)
+        void    createButtonNext(int ax, int ay);     // with coordinates (ax, ay)
         void    buttonAboutAction(void);
         void    buttonNextAction(void);
 

@@ -52,7 +52,7 @@ void    MainWindow::putWindowOnScreen(int windowWidth, int windowHeight)
 }
 
 // creating button "about"
-void    MainWindow::createButtonAbout(int x, int y)
+void    MainWindow::createButtonAbout(int ax, int ay)
 {
     this->_buttonAbout = new QToolButton(this);
     this->_buttonAbout->setIcon(QIcon(":/Imgs/about.png"));
@@ -60,13 +60,13 @@ void    MainWindow::createButtonAbout(int x, int y)
     this->_buttonAbout->setCursor(Qt::PointingHandCursor);
     this->_buttonAbout->setToolTip("about the application");
     this->_buttonAbout->setStyleSheet(MY_BUTTON_STYLE);
-    this->_buttonAbout->setGeometry(x, y, 80, 40);
+    this->_buttonAbout->setGeometry(ax, ay, 80, 40);
     this->_buttonAbout->show();
     connect(this->_buttonAbout, &QToolButton::clicked, this, [=](void) {this->buttonAboutAction(); });
 }
 
 // creating button "next"
-void    MainWindow::createButtonNext(int x, int y)
+void    MainWindow::createButtonNext(int ax, int ay)
 {
     this->_buttonNext = new QToolButton(this);
     this->_buttonNext->setIcon(QIcon(":/Imgs/next.png"));
@@ -74,7 +74,7 @@ void    MainWindow::createButtonNext(int x, int y)
     this->_buttonNext->setCursor(Qt::PointingHandCursor);
     this->_buttonNext->setToolTip("go to CoreAPB3_C0*");
     this->_buttonNext->setStyleSheet(MY_BUTTON_STYLE);
-    this->_buttonNext->setGeometry(x, y, 80, 40);
+    this->_buttonNext->setGeometry(ax, ay, 80, 40);
     this->_buttonNext->show();
     connect(this->_buttonNext, &QToolButton::clicked, this, [=](void) {this->buttonNextAction(); });
 }

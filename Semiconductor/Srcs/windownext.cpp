@@ -1,4 +1,5 @@
 #include "windownext.hpp"
+#include <QDebug>
 
 WindowNext::WindowNext(MainWindow *parent)
     : QDialog(parent)
@@ -8,11 +9,14 @@ WindowNext::WindowNext(MainWindow *parent)
 
     this->_groupBox1 = new QGroupBox("", this);
     this->_groupBox1->setGeometry(5, 5, 790, 30);
-    this->_groupBox1->setStyleSheet("border: 1px #1c4684; background: #1c4684;");
+    this->_groupBox1->setStyleSheet("color: white; border: 1px #1c4684; background: #1c4684;");
 
     this->_label1 = new QLabel("COREAPB3:4.2.100", this);
     this->_label1->setGeometry(10, 40, 300, 30);
     this->_label1->setStyleSheet("color: black; font-size: 20px; font-weight: bold;");
+
+    this->_buttonSave = this->createButton(_groupBox1, ":/Imgs/save.png", 5, 1, 28, 28, "save", \
+                                           &WindowNext::buttonSaveAction);
 }
 
 WindowNext::~WindowNext()
@@ -22,6 +26,9 @@ WindowNext::~WindowNext()
 
     delete _label1;
     _label1 = nullptr;
+
+    delete _buttonSave;
+    _buttonSave = nullptr;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
@@ -42,3 +49,31 @@ void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
     this->setWindowIcon(QIcon(":/Imgs/logo.ico"));
     this->setStyleSheet("background: #f7f8fb;");
 }
+
+// creating button
+QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPath, \
+                                      int ax, int ay, int aw, int ah, \
+                                      const QString& toolTip, void (WindowNext::*action)(void))
+{
+    QToolButton *button = new QToolButton(parent);
+    button->setIcon(QIcon(iconPath));
+    button->setIconSize(QSize(aw, ah));
+    button->setCursor(Qt::PointingHandCursor);
+    button->setToolTip(toolTip);
+    button->setStyleSheet(MY_BUTTON_STYLE2);
+    button->setGeometry(ax, ay, aw, ah);
+    button->show();
+    connect(button, &QToolButton::clicked, this,
+            [=](void) {
+                if (action != nullptr)
+                    (this->*action)();
+            });
+    return button;
+}
+
+void    WindowNext::buttonSaveAction(void)
+{
+    // write code here
+}
+
+
