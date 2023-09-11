@@ -4,22 +4,27 @@
 WindowNext::WindowNext(MainWindow *parent)
     : QDialog(parent)
 {
+    // create window and put it on the screan
     this->putWindowOnScreen(800, 700);
     this->setModal(true);
 
+    // create first group box with appropriate parameters and style
     this->_groupBox1 = new QGroupBox("", this);
     this->_groupBox1->setGeometry(5, 5, 790, 30);
     this->_groupBox1->setStyleSheet("color: white; border: 1px #1c4684; background: #1c4684;");
 
+    // create first label with appropriate parameters and style
     this->_label1 = new QLabel("COREAPB3:4.2.100", this);
     this->_label1->setGeometry(10, 40, 300, 30);
     this->_label1->setStyleSheet("color: black; font-size: 20px; font-weight: bold;");
 
-    this->_buttonSave = this->createButton(_groupBox1, ":/Imgs/save.png", 5, 3, 24, 24, "save", \
-                                           &WindowNext::buttonSaveAction);
+    // create buttons "save", "print" and "resize" with appropriate parameters
+    this->_buttonSave = this->createButton(_groupBox1, ":/Imgs/save.png", 5, 3, 24, 24, "save", &WindowNext::buttonSaveAction);
     this->_buttonPrint = this->createButton(_groupBox1, ":/Imgs/print.png", 45, 3, 24, 24, "print", nullptr);
-    _buttonPrint->setEnabled(false);
     this->_buttonResize = this->createButton(_groupBox1, ":/Imgs/resize.png", 85, 3, 24, 24, "resize", nullptr);
+
+    // disable button "print
+    _buttonPrint->setEnabled(false);
 }
 
 WindowNext::~WindowNext()
@@ -50,8 +55,9 @@ void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
     this->setGeometry((screenWidth - windowWidth) / 2, \
                     (screenHeight - windowHeight) / 2, \
                       windowWidth, windowHeight);
-    this->setMinimumSize(windowWidth, windowHeight);
-    this->setMaximumSize(windowWidth, windowHeight);
+
+    // set window fixed size
+    this->setFixedSize(windowWidth, windowHeight);
 
     // set title, icon, and background of window
     this->setWindowTitle("CoreAPB3_C0* [active]");
@@ -59,7 +65,7 @@ void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
     this->setStyleSheet("background: #f7f8fb;");
 }
 
-// creating button
+// creating new button
 QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPath, \
                                       int ax, int ay, int aw, int ah, \
                                       const QString& toolTip, void (WindowNext::*action)(void))

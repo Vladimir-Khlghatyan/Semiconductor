@@ -42,8 +42,9 @@ void    MainWindow::putWindowOnScreen(int windowWidth, int windowHeight)
     this->setGeometry((screenWidth - windowWidth) / 2, \
                     (screenHeight - windowHeight) / 2, \
                       windowWidth, windowHeight);
-    this->setMinimumSize(windowWidth, windowHeight);
-    this->setMaximumSize(windowWidth, windowHeight);
+
+    // set window fixed size
+    this->setFixedSize(windowWidth, windowHeight);
 
     // set title, icon, and background of window
     this->setWindowTitle("Instigate Semiconductor");
