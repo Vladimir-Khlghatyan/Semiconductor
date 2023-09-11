@@ -13,6 +13,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class WindowNext;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -22,11 +24,17 @@ class MainWindow : public QMainWindow
         ~MainWindow();
 
         void    putWindowOnScreen(int windowWidth, int windowHeight);
+        void    createButtonAbout(int x, int y);    // with coordinates (x, y)
+        void    createButtonNext(int x, int y);     // with coordinates (x, y)
         void    buttonAboutAction(void);
+        void    buttonNextAction(void);
 
     private:
         Ui::MainWindow *ui;
 
         QToolButton *_buttonAbout;
+        QToolButton *_buttonNext;
+
+        WindowNext  *_windowNext;
 };
 #endif // MAINWINDOW_HPP
