@@ -1,13 +1,19 @@
 #include "mainwindow.hpp"
 #include "../ui_mainwindow.h"
 
+#include "windownext.hpp"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    this->putWindowOnScreen(701, 350);
+    this->_buttonAbout = nullptr;
+    this->_buttonNext = nullptr;
+    this->_windowNext = nullptr;
+
+    this->putWindowOnScreen(700, 350);
     this->createButtonAbout(420, 230);
     this->createButtonNext(530, 230);
 }
@@ -21,6 +27,9 @@ MainWindow::~MainWindow()
 
     delete _buttonNext;
     _buttonNext = nullptr;
+
+    delete _windowNext;
+    _windowNext = nullptr;
 }
 
 void    MainWindow::putWindowOnScreen(int windowWidth, int windowHeight)
@@ -92,6 +101,11 @@ void    MainWindow::buttonAboutAction(void)
 // action for button "about"
 void    MainWindow::buttonNextAction(void)
 {
-
+    try
+    {
+        this->_windowNext = new WindowNext(this);
+        this->_windowNext->exec();
+    }
+    catch (...) {    }
 }
 
