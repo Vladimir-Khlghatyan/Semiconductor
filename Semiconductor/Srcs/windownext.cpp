@@ -88,21 +88,34 @@ WindowNext::WindowNext(MainWindow *parent)
     _buttonTools->setText("Tools");
 
     // create titles for sections
-    this->_sectionTitle1 = new QLabel("DATA WITH CONFIGURATION", _groupBoxConfig);
-    this->_sectionTitle1->setGeometry(20, 5, 400, 30);
-    this->_sectionTitle1->setStyleSheet(CUSTOM_STYLE11);
+    const QString title[4] = {"DATA WITH CONFIGURATION", \
+                              "ADDRESS CONFIGURATION", \
+                              "ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", \
+                              "ENABLED APB SLAVE SLOTS"};
+    const int coor[4][4] = {{20, 1  , 400, 25}, \
+                            {20, 58 , 400, 25}, \
+                            {20, 175, 400, 25}, \
+                            {20, 322, 400, 25}};
+    for (int i{}; i < 4; ++i)
+    {
+        this->_sectionTitles.push_back(new QLabel(title[i], _groupBoxConfig));
+        this->_sectionTitles[i]->setGeometry(coor[i][0], coor[i][1], coor[i][2], coor[i][3]);
+        this->_sectionTitles[i]->setStyleSheet(CUSTOM_STYLE11);
+    }
 
-    this->_sectionTitle2 = new QLabel("ADDRESS CONFIGURATION", _groupBoxConfig);
-    this->_sectionTitle2->setGeometry(20, 65, 400, 30);
-    this->_sectionTitle2->setStyleSheet(CUSTOM_STYLE11);
 
-    this->_sectionTitle3 = new QLabel("ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", _groupBoxConfig);
-    this->_sectionTitle3->setGeometry(20, 125, 400, 30);
-    this->_sectionTitle3->setStyleSheet(CUSTOM_STYLE11);
-
-    this->_sectionTitle4 = new QLabel("ENABLED APB SLAVE SLOTS", _groupBoxConfig);
-    this->_sectionTitle4->setGeometry(20, 185, 400, 30);
-    this->_sectionTitle4->setStyleSheet(CUSTOM_STYLE11);
+    // create 4 groupBoxes for 'Configuration' section
+    // coordinates of groupBoxes on _groupBoxConfig
+    const int coor_[4][4] = {{1, 27 , 787, 30}, \
+                             {1, 84 , 787, 90}, \
+                             {1, 201, 787, 120}, \
+                             {1, 348, 787, 191}};
+    for (int i{}; i < 4; ++i)
+    {
+        this->_groupBoxSections.push_back(new QGroupBox("", _groupBoxConfig));
+        this->_groupBoxSections[i]->setGeometry(coor_[i][0], coor_[i][1], coor_[i][2], coor_[i][3]);
+        this->_groupBoxSections[i]->setStyleSheet(CUSTOM_STYLE12);
+    }
 }
 
 WindowNext::~WindowNext()
@@ -122,10 +135,12 @@ WindowNext::~WindowNext()
     delete _underConstraction;
     delete _buttonConfig;
     delete _buttonTools;
-    delete _sectionTitle1;
-    delete _sectionTitle2;
-    delete _sectionTitle3;
-    delete _sectionTitle4;
+
+    for (auto title : _sectionTitles)
+        delete title;
+
+    for (auto groupBox : _groupBoxSections)
+        delete groupBox;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)

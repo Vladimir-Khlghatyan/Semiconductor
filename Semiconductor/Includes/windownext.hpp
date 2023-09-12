@@ -7,6 +7,7 @@
 # include <QGroupBox>
 # include <QLabel>
 # include <QApplication>
+# include <QVector>>
 # include "mainwindow.hpp"
 
 class MainWindow;
@@ -38,10 +39,14 @@ class WindowNext : public QDialog
         QLabel      *_blueLine;
         QLabel      *_underConstraction;
 
-        QLabel      *_sectionTitle1; // first section in 'Configuration' menu (DATA WITH CONFIGURATION)
-        QLabel      *_sectionTitle2; // second section in 'Configuration' menu (ADDRESS CONFIGURATION)
-        QLabel      *_sectionTitle3; // third section in 'Configuration' menu (ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE)
-        QLabel      *_sectionTitle4; // fourth section in 'Configuration' menu (ENABLED APB SLAVE SLOTS)
+
+        // Titles and groupboxes for four sections in 'Configuration' menu:
+        // 1) DATA WITH CONFIGURATION
+        // 2) ADDRESS CONFIGURATION
+        // 3) ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE
+        // 4) ENABLED APB SLAVE SLOTS
+        QVector<QLabel*>    _sectionTitles;
+        QVector<QGroupBox*> _groupBoxSections;
 
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;
