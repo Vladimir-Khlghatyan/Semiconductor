@@ -9,5 +9,8 @@
         <file>Imgs/print.png</file>
         <file>Imgs/resize.png</file>
         <file>Imgs/actionless.png</file>
+        <file>Imgs/drc.png</file>
+        <file>Imgs/generate.png</file>
+        <file>Imgs/help.png</file>
     </qresource>
 </RCC>

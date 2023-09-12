@@ -19,8 +19,8 @@ class WindowNext : public QDialog
 
         void            putWindowOnScreen(int windowWidth, int windowHeight);
         QToolButton*    createButton(QWidget *parent, const QString& iconPath, \
-                                    int ax, int ay, int aw, int ah, \
-                                    const QString& toolTip, void (WindowNext::*action)(void));
+                                    int ax, int ay, int aw, int ah, const QString& toolTip, \
+                                  const QString& style, void (WindowNext::*action)(void));
 
     private slots:
         void    buttonSaveAction(void);
@@ -31,12 +31,15 @@ class WindowNext : public QDialog
         QGroupBox   *_groupBox2;
         QGroupBox   *_groupBox3;
 
-        QLabel      *_label1;
-        QLabel      *_label2;
+        QLabel      *_title;
 
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;
         QToolButton *_buttonResize;
+
+        QToolButton *_buttonGenerate;
+        QToolButton *_buttonDRC;
+        QToolButton *_buttonHelp;
 };
 
 #endif // WINDOWNEXT_HPP
