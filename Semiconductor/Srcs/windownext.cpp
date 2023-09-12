@@ -53,14 +53,24 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_blueLine->setGeometry(ax, 151, 130, 2);
 
 
-    // create groupBox for Tools menu
+    // create groupBox for Configuration/Tools menu
+    this->_groupBoxConfig = new QGroupBox("", this);
+    this->_groupBoxConfig->setGeometry(5, 154, 790, 541);
+    this->_groupBoxConfig->setStyleSheet(CUSTOM_STYLE9);
+
     this->_groupBoxTools = new QGroupBox("", this);
     this->_groupBoxTools->setGeometry(5, 154, 790, 541);
     this->_groupBoxTools->setStyleSheet(CUSTOM_STYLE9);
     if (_configIsActive == true)
+    {
+        _groupBoxConfig->show();
         _groupBoxTools->hide();
+    }
     else
+    {
+        _groupBoxConfig->hide();
         _groupBoxTools->show();
+    }
 
 
     // put underConstraction.png on Tools menu groupBox
@@ -110,6 +120,9 @@ WindowNext::~WindowNext()
 
     delete _blueLine;
     _blueLine = nullptr;
+
+    delete _groupBoxConfig;
+    _groupBoxConfig = nullptr;
 
     delete _groupBoxTools;
     _groupBoxTools = nullptr;
@@ -181,6 +194,7 @@ void    WindowNext::buttonConfigAction(void)
     {
         _configIsActive = true;
         _blueLine->setGeometry(20, 151, 130, 2);
+        _groupBoxConfig->show();
         _groupBoxTools->hide();
     }
 }
@@ -192,11 +206,10 @@ void    WindowNext::buttonTollsAction(void)
     {
         _configIsActive = false;
         _blueLine->setGeometry(150, 151, 130, 2);
+        _groupBoxConfig->hide();
         _groupBoxTools->show();
     }
 }
-
-
 
 // actionless button
 void    WindowNext::actionlessButton(void)
