@@ -17,6 +17,7 @@ include_directories(Includes/)
 set(PROJECT_SOURCES
 	    Includes/mainwindow.hpp
 		Includes/windownext.hpp
+		Includes/styles.hpp
 
 		Srcs/main.cpp
 		Srcs/mainwindow.cpp

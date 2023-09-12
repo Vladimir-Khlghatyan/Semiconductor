@@ -9,9 +9,6 @@
 # include <QApplication>
 # include "mainwindow.hpp"
 
-# define MY_BUTTON_STYLE2 "QToolButton { border-radius: 40px; background: #1c4684;} \
-                            QToolButton:hover { border-radius: 40px; background: solid green;}"
-
 class MainWindow;
 
 class WindowNext : public QDialog

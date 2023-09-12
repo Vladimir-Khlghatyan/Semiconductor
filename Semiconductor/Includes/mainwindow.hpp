@@ -6,9 +6,6 @@
 # include <QToolButton>
 # include <QMessageBox>
 
-# define MY_BUTTON_STYLE "QToolButton { border-radius: 20px; border: 3px solid #a0f436; background: #001127;} \
-                        QToolButton:hover { border-radius: 20px; border: 3px solid blue; background: #00377d;}"
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE

@@ -2,6 +2,7 @@
 #include "../ui_mainwindow.h"
 
 #include "windownext.hpp"
+#include "styles.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,10 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    this->_buttonAbout = nullptr;
-    this->_buttonNext = nullptr;
-    this->_windowNext = nullptr;
-
+    // put window to the center of the screen
     this->putWindowOnScreen(700, 350);
 
     // create buttons "about" and "next" with appropriate parameters
@@ -42,7 +40,7 @@ void    MainWindow::putWindowOnScreen(int windowWidth, int windowHeight)
     int screenWidth = screenSize.width();
     int screenHeight = screenSize.height();
     this->setGeometry((screenWidth - windowWidth) / 2, \
-                    (screenHeight - windowHeight) / 2, \
+                     (screenHeight - windowHeight) / 2, \
                       windowWidth, windowHeight);
 
     // set window fixed size
@@ -64,7 +62,7 @@ QToolButton*    MainWindow::createButton(QWidget *parent, const QString& iconPat
     button->setIconSize(QSize(aw / 1.5, ah / 1.5));
     button->setCursor(Qt::PointingHandCursor);
     button->setToolTip(toolTip);
-    button->setStyleSheet(MY_BUTTON_STYLE);
+    button->setStyleSheet(CUSTOM_STYLE1);
     button->setGeometry(ax, ay, aw, ah);
     button->show();
     connect(button, &QToolButton::clicked, this,
