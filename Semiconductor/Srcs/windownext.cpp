@@ -74,7 +74,7 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // put underConstraction.png on Tools menu groupBox
-    this->_underConstraction = new QLabel("Temp", _groupBoxTools);
+    this->_underConstraction = new QLabel("", _groupBoxTools);
     this->_underConstraction->setGeometry(270, 145, 250, 250);
     this->_underConstraction->setStyleSheet("border: none;");
     QPixmap pixmap(":/Imgs/underConstraction.png");
@@ -87,7 +87,8 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_buttonTools = this->createButton(this, "", 150, 120, 130, 30, "tools", CUSTOM_STYLE10, &WindowNext::buttonTollsAction);
     _buttonTools->setText("Tools");
 
-    // create titles for sections
+
+    // create section titles for 'Configuration' menu
     const QString title[4] = {"DATA WITH CONFIGURATION", \
                               "ADDRESS CONFIGURATION", \
                               "ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", \
@@ -104,7 +105,7 @@ WindowNext::WindowNext(MainWindow *parent)
     }
 
 
-    // create 4 groupBoxes for 'Configuration' section
+    // create 4 groupBoxes for 'Configuration' menu
     // coordinates of groupBoxes on _groupBoxConfig
     const int coor_[4][4] = {{1, 27 , 787, 30}, \
                              {1, 84 , 787, 90}, \
@@ -116,6 +117,31 @@ WindowNext::WindowNext(MainWindow *parent)
         this->_groupBoxSections[i]->setGeometry(coor_[i][0], coor_[i][1], coor_[i][2], coor_[i][3]);
         this->_groupBoxSections[i]->setStyleSheet(CUSTOM_STYLE12);
     }
+
+    // create description text for sections in  'Configuration' menu
+    this->_description0 = new QLabel("APB Master Data Bug Width", _groupBoxSections[0]);
+    this->_description0->setGeometry(30, 2, 160, 26);
+    this->_description0->setStyleSheet(CUSTOM_STYLE13);
+
+    this->_description1 = new QLabel("Number of address bits driven by master:", _groupBoxSections[1]);
+    this->_description1->setGeometry(30, 2, 345, 26);
+    this->_description1->setStyleSheet(CUSTOM_STYLE13);
+
+    this->_description2 = new QLabel("Position in slave address of upper 4 bits of master address:", _groupBoxSections[1]);
+    this->_description2->setGeometry(30, 32, 345, 26);
+    this->_description2->setStyleSheet(CUSTOM_STYLE13);
+
+    this->_description3 = new QLabel("Indirect Addressing:", _groupBoxSections[1]);
+    this->_description3->setGeometry(30, 62, 345, 26);
+    this->_description3->setStyleSheet(CUSTOM_STYLE13);
+
+    this->_description4 = new QLabel("Testbench:", _groupBoxSections[3]);
+    this->_description4->setGeometry(30, 127, 60, 26);
+    this->_description4->setStyleSheet(CUSTOM_STYLE13);
+
+    this->_description5 = new QLabel("License:", _groupBoxSections[3]);
+    this->_description5->setGeometry(30, 155, 60, 26);
+    this->_description5->setStyleSheet(CUSTOM_STYLE13);
 }
 
 WindowNext::~WindowNext()
@@ -141,6 +167,13 @@ WindowNext::~WindowNext()
 
     for (auto groupBox : _groupBoxSections)
         delete groupBox;
+
+    delete _description0;
+    delete _description1;
+    delete _description2;
+    delete _description3;
+    delete _description4;
+    delete _description5;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)

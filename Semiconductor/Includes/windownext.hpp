@@ -7,7 +7,7 @@
 # include <QGroupBox>
 # include <QLabel>
 # include <QApplication>
-# include <QVector>>
+# include <QVector>
 # include "mainwindow.hpp"
 
 class MainWindow;
@@ -31,33 +31,39 @@ class WindowNext : public QDialog
 
     private:
         QGroupBox   *_groupBoxSaveButton;
-        QGroupBox   *_groupBoxGenerateButton;
-        QGroupBox   *_groupBoxConfig;
-        QGroupBox   *_groupBoxTools;
-
-        QLabel      *_title;
-        QLabel      *_blueLine;
-        QLabel      *_underConstraction;
-
-
-        // Titles and groupboxes for four sections in 'Configuration' menu:
-        // 1) DATA WITH CONFIGURATION
-        // 2) ADDRESS CONFIGURATION
-        // 3) ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE
-        // 4) ENABLED APB SLAVE SLOTS
-        QVector<QLabel*>    _sectionTitles;
-        QVector<QGroupBox*> _groupBoxSections;
-
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;
         QToolButton *_buttonResize;
 
+        QLabel      *_title;
+
+        QGroupBox   *_groupBoxGenerateButton;
         QToolButton *_buttonGenerate;
         QToolButton *_buttonDRC;
-        QToolButton *_buttonHelp;        
+        QToolButton *_buttonHelp;
 
         QToolButton *_buttonConfig;
         QToolButton *_buttonTools;
+        QLabel      *_blueLine;
+
+        QGroupBox   *_groupBoxConfig;
+        QGroupBox   *_groupBoxTools;
+        QLabel      *_underConstraction;
+
+        // Titles and groupboxes for four sections in 'Configuration' menu:
+        //  0) DATA WITH CONFIGURATION
+        //  1) ADDRESS CONFIGURATION
+        //  2) ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE
+        //  3) ENABLED APB SLAVE SLOTS
+        QVector<QLabel*>    _sectionTitles;
+        QVector<QGroupBox*> _groupBoxSections;
+
+        QLabel      *_description0;
+        QLabel      *_description1;
+        QLabel      *_description2;
+        QLabel      *_description3;
+        QLabel      *_description4;
+        QLabel      *_description5;
 
         bool        _configIsActive;
 };
