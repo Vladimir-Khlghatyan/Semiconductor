@@ -27,8 +27,8 @@ WindowNext::WindowNext(MainWindow *parent)
 
     // create buttons "save", "print" and "resize" with appropriate parameters
     this->_buttonSave = this->createButton(_groupBox1, ":/Imgs/save.png", 5, 3, 24, 24, "save", &WindowNext::buttonSaveAction);
-    this->_buttonPrint = this->createButton(_groupBox1, ":/Imgs/print.png", 45, 3, 24, 24, "print", nullptr);
-    this->_buttonResize = this->createButton(_groupBox1, ":/Imgs/resize.png", 85, 3, 24, 24, "resize", nullptr);
+    this->_buttonPrint = this->createButton(_groupBox1, ":/Imgs/print.png", 45, 3, 24, 24, "print", &WindowNext::actionlessButton);
+    this->_buttonResize = this->createButton(_groupBox1, ":/Imgs/resize.png", 85, 3, 24, 24, "resize", &WindowNext::actionlessButton);
 
     // disable button "print
     _buttonPrint->setEnabled(false);
@@ -96,6 +96,19 @@ QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPat
 void    WindowNext::buttonSaveAction(void)
 {
     // write code here
+}
+
+// actionless button
+void    WindowNext::actionlessButton(void)
+{
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("Actionless button"));
+    msgBox.setText("<br>The button is<br>currently actionless.");
+    msgBox.setIconPixmap(QPixmap(":/Imgs/actionless.png"));
+    msgBox.addButton(QMessageBox::Ok);
+    msgBox.setWindowIcon(QIcon(":/Imgs/logo.ico"));
+    msgBox.exec();
 }
 
 

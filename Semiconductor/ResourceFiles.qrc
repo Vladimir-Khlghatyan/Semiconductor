@@ -8,5 +8,6 @@
         <file>Imgs/save.png</file>
         <file>Imgs/print.png</file>
         <file>Imgs/resize.png</file>
+        <file>Imgs/actionless.png</file>
     </qresource>
 </RCC>
