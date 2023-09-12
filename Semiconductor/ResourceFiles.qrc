@@ -12,5 +12,6 @@
         <file>Imgs/drc.png</file>
         <file>Imgs/generate.png</file>
         <file>Imgs/help.png</file>
+        <file>Imgs/underConstraction.png</file>
     </qresource>
 </RCC>

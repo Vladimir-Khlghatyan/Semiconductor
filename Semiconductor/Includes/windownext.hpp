@@ -29,11 +29,12 @@ class WindowNext : public QDialog
         void    actionlessButton(void);
 
     private:
-        QGroupBox   *_groupBox1;
-        QGroupBox   *_groupBox2;
-        QGroupBox   *_groupBox3;
+        QGroupBox   *_groupBoxSaveButton;
+        QGroupBox   *_groupBoxGenerateButton;
+        QGroupBox   *_groupBoxTools;
 
         QLabel      *_title;
+        QLabel      *_underConstraction;
 
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;
