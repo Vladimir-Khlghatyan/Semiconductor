@@ -23,13 +23,8 @@ MainWindow::~MainWindow()
     delete ui;
 
     delete _buttonAbout;
-    _buttonAbout = nullptr;
-
     delete _buttonNext;
-    _buttonNext = nullptr;
-
     delete _windowNext;
-    _windowNext = nullptr;
 }
 
 void    MainWindow::putWindowOnScreen(int windowWidth, int windowHeight)

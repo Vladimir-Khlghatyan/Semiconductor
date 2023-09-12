@@ -33,13 +33,11 @@ class MainWindow : public QMainWindow
         void    buttonAboutAction(void);
         void    buttonNextAction(void);
 
-
     private:
         Ui::MainWindow *ui;
 
         QToolButton *_buttonAbout;
         QToolButton *_buttonNext;
-
         WindowNext  *_windowNext;
 };
 #endif // MAINWINDOW_HPP

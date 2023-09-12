@@ -35,7 +35,13 @@ class WindowNext : public QDialog
         QGroupBox   *_groupBoxTools;
 
         QLabel      *_title;
+        QLabel      *_blueLine;
         QLabel      *_underConstraction;
+
+        QLabel      *_sectionTitle1; // first section in 'Configuration' menu (DATA WITH CONFIGURATION)
+        QLabel      *_sectionTitle2; // second section in 'Configuration' menu (ADDRESS CONFIGURATION)
+        QLabel      *_sectionTitle3; // third section in 'Configuration' menu (ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE)
+        QLabel      *_sectionTitle4; // fourth section in 'Configuration' menu (ENABLED APB SLAVE SLOTS)
 
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;
@@ -43,9 +49,7 @@ class WindowNext : public QDialog
 
         QToolButton *_buttonGenerate;
         QToolButton *_buttonDRC;
-        QToolButton *_buttonHelp;
-
-        QLabel      *_blueLine;
+        QToolButton *_buttonHelp;        
 
         QToolButton *_buttonConfig;
         QToolButton *_buttonTools;

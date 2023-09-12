@@ -87,54 +87,45 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_buttonTools = this->createButton(this, "", 150, 120, 130, 30, "tools", CUSTOM_STYLE10, &WindowNext::buttonTollsAction);
     _buttonTools->setText("Tools");
 
+    // create titles for sections
+    this->_sectionTitle1 = new QLabel("DATA WITH CONFIGURATION", _groupBoxConfig);
+    this->_sectionTitle1->setGeometry(20, 5, 400, 30);
+    this->_sectionTitle1->setStyleSheet(CUSTOM_STYLE11);
+
+    this->_sectionTitle2 = new QLabel("ADDRESS CONFIGURATION", _groupBoxConfig);
+    this->_sectionTitle2->setGeometry(20, 65, 400, 30);
+    this->_sectionTitle2->setStyleSheet(CUSTOM_STYLE11);
+
+    this->_sectionTitle3 = new QLabel("ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", _groupBoxConfig);
+    this->_sectionTitle3->setGeometry(20, 125, 400, 30);
+    this->_sectionTitle3->setStyleSheet(CUSTOM_STYLE11);
+
+    this->_sectionTitle4 = new QLabel("ENABLED APB SLAVE SLOTS", _groupBoxConfig);
+    this->_sectionTitle4->setGeometry(20, 185, 400, 30);
+    this->_sectionTitle4->setStyleSheet(CUSTOM_STYLE11);
 }
 
 WindowNext::~WindowNext()
 {
     delete _groupBoxSaveButton;
-    _groupBoxSaveButton = nullptr;
-
     delete _groupBoxGenerateButton;
-    _groupBoxGenerateButton = nullptr;
-
     delete _buttonSave;
-    _buttonSave = nullptr;
-
     delete _buttonPrint;
-    _buttonPrint = nullptr;
-
     delete _buttonResize;
-    _buttonResize = nullptr;
-
     delete _title;
-    _title = nullptr;
-
     delete _buttonGenerate;
-    _buttonGenerate = nullptr;
-
     delete _buttonDRC;
-    _buttonDRC = nullptr;
-
     delete _buttonHelp;
-    _buttonHelp = nullptr;
-
     delete _blueLine;
-    _blueLine = nullptr;
-
     delete _groupBoxConfig;
-    _groupBoxConfig = nullptr;
-
     delete _groupBoxTools;
-    _groupBoxTools = nullptr;
-
     delete _underConstraction;
-    _underConstraction = nullptr;
-
     delete _buttonConfig;
-    _buttonConfig = nullptr;
-
     delete _buttonTools;
-    _buttonTools = nullptr;
+    delete _sectionTitle1;
+    delete _sectionTitle2;
+    delete _sectionTitle3;
+    delete _sectionTitle4;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
