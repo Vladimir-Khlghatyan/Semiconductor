@@ -37,6 +37,13 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_buttonDRC = this->createButton(_groupBox2, ":/Imgs/drc.png", 120, 3, 65, 24, "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
     this->_buttonHelp = this->createButton(_groupBox2, ":/Imgs/help.png", 200, 3, 65, 24, "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
 
+    this->_buttonConfig = this->createButton(this, "", 20, 120, 130, 30, "configuration", CUSTOM_STYLE8, &WindowNext::buttonConfAndTollsAction);
+    _buttonConfig->setText("Configuration");
+    _configIsActive = true;
+
+    this->_buttonTools = this->createButton(this, "", 150, 120, 130, 30, "tools", CUSTOM_STYLE8, &WindowNext::buttonConfAndTollsAction);
+    _buttonTools->setText("Tools");
+
 }
 
 WindowNext::~WindowNext()
@@ -64,6 +71,12 @@ WindowNext::~WindowNext()
 
     delete _buttonHelp;
     _buttonHelp = nullptr;
+
+    delete _buttonConfig;
+    _buttonConfig = nullptr;
+
+    delete _buttonTools;
+    _buttonTools = nullptr;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
@@ -92,8 +105,11 @@ QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPat
                                       const QString& style, void (WindowNext::*action)(void))
 {
     QToolButton *button = new QToolButton(parent);
-    button->setIcon(QIcon(iconPath));
-    button->setIconSize(QSize(aw, ah));
+    if (iconPath != "")
+    {
+        button->setIcon(QIcon(iconPath));
+        button->setIconSize(QSize(aw, ah));
+    }
     button->setCursor(Qt::PointingHandCursor);
     button->setToolTip(toolTip);
     button->setStyleSheet(style);
@@ -107,10 +123,18 @@ QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPat
     return button;
 }
 
+// action for 'save' button
 void    WindowNext::buttonSaveAction(void)
 {
     // write code here
 }
+
+// action for 'Configuration' and 'Tools' buttons
+void    WindowNext::buttonConfAndTollsAction(void)
+{
+    // write code here
+}
+
 
 // actionless button
 void    WindowNext::actionlessButton(void)
