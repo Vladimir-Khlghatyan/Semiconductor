@@ -30,12 +30,12 @@ WindowNext::WindowNext(MainWindow *parent)
 
     // create second group box with appropriate parameters and style
     this->_groupBox2 = new QGroupBox("", this);
-    this->_groupBox2->setGeometry(10, 80, 780, 36);
+    this->_groupBox2->setGeometry(10, 80, 780, 30);
     this->_groupBox2->setStyleSheet(CUSTOM_STYLE5);
 
-    this->_buttonGenerate = this->createButton(_groupBox2, ":/Imgs/generate.png", 10, 3, 120, 30, "generate", CUSTOM_STYLE7, &WindowNext::actionlessButton);
-    this->_buttonDRC = this->createButton(_groupBox2, ":/Imgs/drc.png", 140, 3, 81, 30, "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
-    this->_buttonHelp = this->createButton(_groupBox2, ":/Imgs/help.png", 230, 3, 81, 30, "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonGenerate = this->createButton(_groupBox2, ":/Imgs/generate.png", 10, 3, 96, 24, "generate", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonDRC = this->createButton(_groupBox2, ":/Imgs/drc.png", 120, 3, 65, 24, "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonHelp = this->createButton(_groupBox2, ":/Imgs/help.png", 200, 3, 65, 24, "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
 
 }
 
