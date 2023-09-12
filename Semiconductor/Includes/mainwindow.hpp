@@ -28,8 +28,14 @@ class MainWindow : public QMainWindow
         void    createButtonAbout(int ax, int ay);    // with coordinates (ax, ay)
         void    createButtonNext(int ax, int ay);     // with coordinates (ax, ay)
 
+        QToolButton*    createButton(QWidget *parent, const QString& iconPath, \
+                                  int ax, int ay, int aw, int ah, \
+                                  const QString& toolTip, void (MainWindow::*action)(void));
+
+    private slots:
         void    buttonAboutAction(void);
         void    buttonNextAction(void);
+
 
     private:
         Ui::MainWindow *ui;

@@ -14,8 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
     this->_windowNext = nullptr;
 
     this->putWindowOnScreen(700, 350);
-    this->createButtonAbout(420, 230);
-    this->createButtonNext(530, 230);
+
+    // create buttons "about" and "next" with appropriate parameters
+    this->_buttonAbout = this->createButton(this, ":/Imgs/about.png", 420, 230, 80, 40, "about the application", &MainWindow::buttonAboutAction);
+    this->_buttonNext = this->createButton(this, ":/Imgs/next.png", 530, 230, 80, 40, "go to CoreAPB3_C0*", &MainWindow::buttonNextAction);
 }
 
 MainWindow::~MainWindow()
@@ -52,32 +54,25 @@ void    MainWindow::putWindowOnScreen(int windowWidth, int windowHeight)
     this->setStyleSheet("background-image: url(:/Imgs/background.png); font-size: 20px");
 }
 
-// creating button "about"
-void    MainWindow::createButtonAbout(int ax, int ay)
+// create new button
+QToolButton*    MainWindow::createButton(QWidget *parent, const QString& iconPath, \
+                                      int ax, int ay, int aw, int ah, \
+                                      const QString& toolTip, void (MainWindow::*action)(void))
 {
-    this->_buttonAbout = new QToolButton(this);
-    this->_buttonAbout->setIcon(QIcon(":/Imgs/about.png"));
-    this->_buttonAbout->setIconSize(QSize(50, 25));
-    this->_buttonAbout->setCursor(Qt::PointingHandCursor);
-    this->_buttonAbout->setToolTip("about the application");
-    this->_buttonAbout->setStyleSheet(MY_BUTTON_STYLE);
-    this->_buttonAbout->setGeometry(ax, ay, 80, 40);
-    this->_buttonAbout->show();
-    connect(this->_buttonAbout, &QToolButton::clicked, this, [=](void) {this->buttonAboutAction(); });
-}
-
-// creating button "next"
-void    MainWindow::createButtonNext(int ax, int ay)
-{
-    this->_buttonNext = new QToolButton(this);
-    this->_buttonNext->setIcon(QIcon(":/Imgs/next.png"));
-    this->_buttonNext->setIconSize(QSize(50, 25));
-    this->_buttonNext->setCursor(Qt::PointingHandCursor);
-    this->_buttonNext->setToolTip("go to CoreAPB3_C0*");
-    this->_buttonNext->setStyleSheet(MY_BUTTON_STYLE);
-    this->_buttonNext->setGeometry(ax, ay, 80, 40);
-    this->_buttonNext->show();
-    connect(this->_buttonNext, &QToolButton::clicked, this, [=](void) {this->buttonNextAction(); });
+    QToolButton *button = new QToolButton(parent);
+    button->setIcon(QIcon(iconPath));
+    button->setIconSize(QSize(aw / 1.5, ah / 1.5));
+    button->setCursor(Qt::PointingHandCursor);
+    button->setToolTip(toolTip);
+    button->setStyleSheet(MY_BUTTON_STYLE);
+    button->setGeometry(ax, ay, aw, ah);
+    button->show();
+    connect(button, &QToolButton::clicked, this,
+            [=](void) {
+                if (action != nullptr)
+                    (this->*action)();
+            });
+    return button;
 }
 
 // action for button "about"

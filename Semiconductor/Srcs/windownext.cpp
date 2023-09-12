@@ -65,7 +65,7 @@ void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
     this->setStyleSheet("background: #f7f8fb;");
 }
 
-// creating new button
+// create new button
 QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPath, \
                                       int ax, int ay, int aw, int ah, \
                                       const QString& toolTip, void (WindowNext::*action)(void))
