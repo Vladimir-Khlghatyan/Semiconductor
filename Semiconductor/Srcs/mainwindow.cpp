@@ -76,12 +76,7 @@ QToolButton*    MainWindow::createButton(QWidget *parent, const QString& iconPat
 // action for button "about"
 void    MainWindow::buttonAboutAction(void)
 {
-    QString about = "<b>IS Beta version 1.0</b> \
-                        <br> <br> This application was created \
-                        <br> as a requirement for joining the \
-                        <br> <b>Instigate Semiconductor</b> team.  \
-                        <br> <br>Author: <b>Vladimir Khlghatyan</b> \
-                        <br> <br> ©2023. All rights reserved.";
+    QString about = ABOUT;
 
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("About the application"));

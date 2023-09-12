@@ -23,7 +23,8 @@ class WindowNext : public QDialog
                                     const QString& toolTip, void (WindowNext::*action)(void));
 
     private slots:
-        void            buttonSaveAction(void);
+        void    buttonSaveAction(void);
+        void    actionlessButton(void);
 
     private:
         QGroupBox   *_groupBox1;
