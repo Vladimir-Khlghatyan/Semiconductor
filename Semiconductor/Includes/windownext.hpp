@@ -24,7 +24,8 @@ class WindowNext : public QDialog
 
     private slots:
         void    buttonSaveAction(void);
-        void    buttonConfAndTollsAction(void);
+        void    buttonConfigAction(void);
+        void    buttonTollsAction(void);
         void    actionlessButton(void);
 
     private:
@@ -41,6 +42,8 @@ class WindowNext : public QDialog
         QToolButton *_buttonGenerate;
         QToolButton *_buttonDRC;
         QToolButton *_buttonHelp;
+
+        QLabel      *_blueLine;
 
         QToolButton *_buttonConfig;
         QToolButton *_buttonTools;

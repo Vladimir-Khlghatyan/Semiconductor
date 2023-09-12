@@ -33,15 +33,23 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_groupBox2->setGeometry(10, 80, 780, 30);
     this->_groupBox2->setStyleSheet(CUSTOM_STYLE5);
 
+    // create buttons "Generate", "DRC" and "Help" with appropriate parameters
     this->_buttonGenerate = this->createButton(_groupBox2, ":/Imgs/generate.png", 10, 3, 96, 24, "generate", CUSTOM_STYLE7, &WindowNext::actionlessButton);
     this->_buttonDRC = this->createButton(_groupBox2, ":/Imgs/drc.png", 120, 3, 65, 24, "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
     this->_buttonHelp = this->createButton(_groupBox2, ":/Imgs/help.png", 200, 3, 65, 24, "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
 
-    this->_buttonConfig = this->createButton(this, "", 20, 120, 130, 30, "configuration", CUSTOM_STYLE8, &WindowNext::buttonConfAndTollsAction);
-    _buttonConfig->setText("Configuration");
     _configIsActive = true;
 
-    this->_buttonTools = this->createButton(this, "", 150, 120, 130, 30, "tools", CUSTOM_STYLE8, &WindowNext::buttonConfAndTollsAction);
+    // create blue line to switch from Configuration to Tools
+    this->_blueLine = new QLabel("", this);
+    this->_blueLine->setStyleSheet("border: 1px solid blue; background: solid blue;");
+    int ax = _configIsActive ? 20 : 150;
+    this->_blueLine->setGeometry(ax, 151, 130, 2);
+
+    // create buttons "Configuration" and "Tools" with appropriate parameters
+    this->_buttonConfig = this->createButton(this, "", 20, 120, 130, 30, "configuration", CUSTOM_STYLE9, &WindowNext::buttonConfigAction);
+    _buttonConfig->setText("Configuration");
+    this->_buttonTools = this->createButton(this, "", 150, 120, 130, 30, "tools", CUSTOM_STYLE9, &WindowNext::buttonTollsAction);
     _buttonTools->setText("Tools");
 
 }
@@ -71,6 +79,9 @@ WindowNext::~WindowNext()
 
     delete _buttonHelp;
     _buttonHelp = nullptr;
+
+    delete _blueLine;
+    _blueLine = nullptr;
 
     delete _buttonConfig;
     _buttonConfig = nullptr;
@@ -129,11 +140,26 @@ void    WindowNext::buttonSaveAction(void)
     // write code here
 }
 
-// action for 'Configuration' and 'Tools' buttons
-void    WindowNext::buttonConfAndTollsAction(void)
+// action for 'Configuration' button
+void    WindowNext::buttonConfigAction(void)
 {
-    // write code here
+    if (_configIsActive == false)
+    {
+        _configIsActive = true;
+        _blueLine->setGeometry(20, 151, 130, 2);
+    }
 }
+
+// action for 'Tools' button
+void    WindowNext::buttonTollsAction(void)
+{
+    if (_configIsActive == true)
+    {
+        _configIsActive = false;
+        _blueLine->setGeometry(150, 151, 130, 2);
+    }
+}
+
 
 
 // actionless button

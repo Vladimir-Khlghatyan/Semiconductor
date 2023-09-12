@@ -25,6 +25,6 @@
 # define CUSTOM_STYLE7 "QToolButton { border: 1px solid white; border-radius: 40px; background: solid white;} \
                         QToolButton:hover { border: 1px solid white; border-radius: 10px; background: solid #a0f436;}"
 
-# define CUSTOM_STYLE8 "QToolButton { border: node; background: none; font-size: 16px;}"
+# define CUSTOM_STYLE9 "QToolButton { border: node; background: none; font-size: 16px;}"
 
 #endif // STYLES_HPP
