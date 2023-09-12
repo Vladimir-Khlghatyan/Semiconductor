@@ -31,6 +31,7 @@ class WindowNext : public QDialog
         QGroupBox   *_groupBox3;
 
         QLabel      *_label1;
+        QLabel      *_label2;
 
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;

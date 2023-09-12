@@ -20,6 +20,11 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_label1->setGeometry(10, 40, 300, 30);
     this->_label1->setStyleSheet(CUSTOM_STYLE3);
 
+    // create second group box with appropriate parameters and style
+    this->_groupBox2 = new QGroupBox("", this);
+    this->_groupBox2->setGeometry(10, 80, 780, 35);
+    this->_groupBox2->setStyleSheet(CUSTOM_STYLE4);
+
     // create buttons "save", "print" and "resize" with appropriate parameters
     this->_buttonSave = this->createButton(_groupBox1, ":/Imgs/save.png", 5, 3, 24, 24, "save", &WindowNext::buttonSaveAction);
     this->_buttonPrint = this->createButton(_groupBox1, ":/Imgs/print.png", 45, 3, 24, 24, "print", nullptr);
@@ -64,7 +69,7 @@ void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
     // set title, icon, and background of window
     this->setWindowTitle("CoreAPB3_C0* [active]");
     this->setWindowIcon(QIcon(":/Imgs/logo.ico"));
-    this->setStyleSheet(CUSTOM_STYLE4);
+    this->setStyleSheet(CUSTOM_STYLE5);
 }
 
 // create new button
@@ -77,7 +82,7 @@ QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPat
     button->setIconSize(QSize(aw, ah));
     button->setCursor(Qt::PointingHandCursor);
     button->setToolTip(toolTip);
-    button->setStyleSheet(CUSTOM_STYLE5);
+    button->setStyleSheet(CUSTOM_STYLE6);
     button->setGeometry(ax, ay, aw, ah);
     button->show();
     connect(button, &QToolButton::clicked, this,
