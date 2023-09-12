@@ -34,6 +34,6 @@
 
 # define CUSTOM_STYLE12 "color: black; border: node; background: solid #f6f7fb;"
 
-# define CUSTOM_STYLE13 "color: black; border: node; font-size: 13px;"
+# define CUSTOM_STYLE13 "color: black; border: node; font-size: 14px;"
 
 #endif // STYLES_HPP

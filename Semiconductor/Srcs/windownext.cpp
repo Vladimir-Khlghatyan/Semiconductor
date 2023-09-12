@@ -120,27 +120,27 @@ WindowNext::WindowNext(MainWindow *parent)
 
     // create description text for sections in  'Configuration' menu
     this->_description0 = new QLabel("APB Master Data Bug Width", _groupBoxSections[0]);
-    this->_description0->setGeometry(30, 2, 160, 26);
+    this->_description0->setGeometry(30, 2, 180, 26);
     this->_description0->setStyleSheet(CUSTOM_STYLE13);
 
     this->_description1 = new QLabel("Number of address bits driven by master:", _groupBoxSections[1]);
-    this->_description1->setGeometry(30, 2, 345, 26);
+    this->_description1->setGeometry(30, 2, 365, 26);
     this->_description1->setStyleSheet(CUSTOM_STYLE13);
 
     this->_description2 = new QLabel("Position in slave address of upper 4 bits of master address:", _groupBoxSections[1]);
-    this->_description2->setGeometry(30, 32, 345, 26);
+    this->_description2->setGeometry(30, 32, 365, 26);
     this->_description2->setStyleSheet(CUSTOM_STYLE13);
 
     this->_description3 = new QLabel("Indirect Addressing:", _groupBoxSections[1]);
-    this->_description3->setGeometry(30, 62, 345, 26);
+    this->_description3->setGeometry(30, 62, 365, 26);
     this->_description3->setStyleSheet(CUSTOM_STYLE13);
 
     this->_description4 = new QLabel("Testbench:", _groupBoxSections[3]);
-    this->_description4->setGeometry(30, 127, 60, 26);
+    this->_description4->setGeometry(30, 127, 70, 26);
     this->_description4->setStyleSheet(CUSTOM_STYLE13);
 
     this->_description5 = new QLabel("License:", _groupBoxSections[3]);
-    this->_description5->setGeometry(30, 155, 60, 26);
+    this->_description5->setGeometry(30, 155, 70, 26);
     this->_description5->setStyleSheet(CUSTOM_STYLE13);
 }
 
