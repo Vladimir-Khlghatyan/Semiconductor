@@ -26,6 +26,7 @@ class WindowNext : public QDialog
         void    initValues(void);
         void    putWindowOnScreen(int windowWidth, int windowHeight);
         void    saveStateToJSON(void);
+        void    readStateFromJSON(void);
         QString getExecutableGrandparentDirPath(void);
 
         QToolButton*    createButton(QWidget *parent, const QString& iconPath, \

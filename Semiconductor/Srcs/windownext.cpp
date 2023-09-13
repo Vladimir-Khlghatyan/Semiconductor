@@ -323,7 +323,7 @@ void    WindowNext::actionlessButton(void)
 void    WindowNext::initValues(void)
 {
 
-    _JSONfilePath = this->getExecutableGrandparentDirPath() + "/state/state.json";
+    _JSONfilePath = this->getExecutableGrandparentDirPath() + "/JSON/state.json";
 
     // ###################################### TITLES ###########################################
 
@@ -489,6 +489,11 @@ void    WindowNext::saveStateToJSON(void)
     }
     else
         qDebug() << "Failed to open JSON file for writing.";
+}
+
+void    WindowNext::readStateFromJSON(void)
+{
+
 }
 
 QString WindowNext::getExecutableGrandparentDirPath(void)
