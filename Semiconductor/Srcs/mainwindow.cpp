@@ -91,14 +91,11 @@ void    MainWindow::buttonNextAction(void)
 {
     try
     {
-        this->_windowNext = new WindowNext(this);
+        if (this->_windowNext == nullptr)
+            this->_windowNext = new WindowNext(this);
         this->_windowNext->exec();
-        delete _windowNext;
-        _windowNext = nullptr;
     }
-    catch (int ret) {
-        delete _windowNext;
-        _windowNext = nullptr;
+    catch (...) {
         qDebug() << "Can't create windowNext class object!";
         exit(1);
     }

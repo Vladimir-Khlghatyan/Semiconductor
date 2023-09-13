@@ -24,6 +24,7 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create buttons "save", "print" and "resize" with appropriate parameters
+    this->_buttonSave = nullptr;
     this->_buttonSave = this->createButton(_groupBoxSaveButton, ":/Imgs/save.png", 10, 3, 24, 24, "save", CUSTOM_STYLE3, &WindowNext::buttonSaveAction);
     this->_buttonPrint = this->createButton(_groupBoxSaveButton, ":/Imgs/print.png", 50, 3, 24, 24, "print", CUSTOM_STYLE3, &WindowNext::actionlessButton);
     this->_buttonResize = this->createButton(_groupBoxSaveButton, ":/Imgs/resize.png", 90, 3, 24, 24, "resize", CUSTOM_STYLE3, &WindowNext::actionlessButton);
@@ -144,31 +145,28 @@ WindowNext::WindowNext(MainWindow *parent)
                     qDebug() << _comboboxes[i]->currentText();
                 });
     }
+    qDebug() << "ctor";
 }
 
 WindowNext::~WindowNext()
 {
-    delete _groupBoxSaveButton;
-    delete _groupBoxGenerateButton;
     delete _buttonSave;
     delete _buttonPrint;
     delete _buttonResize;
+    delete _groupBoxSaveButton;
     delete _title;
     delete _buttonGenerate;
     delete _buttonDRC;
     delete _buttonHelp;
-    delete _blueLine;
-    delete _groupBoxConfig;
-    delete _groupBoxTools;
-    delete _underConstraction;
+    delete _groupBoxGenerateButton;
     delete _buttonConfig;
     delete _buttonTools;
+    delete _blueLine;
+    delete _underConstraction;
+    delete _groupBoxTools;
 
     for (auto title : _sectionTitles)
         delete title;
-
-    for (auto groupBox : _groupBoxSections)
-        delete groupBox;
 
     for (auto _description : _descriptions)
         delete _description;
@@ -178,6 +176,12 @@ WindowNext::~WindowNext()
 
     for (auto _combobox : _comboboxes)
         delete _combobox;
+
+    for (auto groupBox : _groupBoxSections)
+        delete groupBox;
+
+    delete _groupBoxConfig;
+
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
@@ -270,6 +274,7 @@ void    WindowNext::actionlessButton(void)
 void    WindowNext::closeEvent(QCloseEvent *event)
 {
     event->accept();
+    qDebug() << "close event";
 }
 
 void    WindowNext::initValues(void)
