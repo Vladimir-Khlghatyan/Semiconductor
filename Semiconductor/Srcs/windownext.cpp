@@ -145,7 +145,6 @@ WindowNext::WindowNext(MainWindow *parent)
                     qDebug() << _comboboxes[i]->currentText();
                 });
     }
-    qDebug() << "ctor";
 }
 
 WindowNext::~WindowNext()
@@ -269,12 +268,6 @@ void    WindowNext::actionlessButton(void)
     msgBox.addButton(QMessageBox::Ok);
     msgBox.setWindowIcon(QIcon(":/Imgs/logo.ico"));
     msgBox.exec();
-}
-
-void    WindowNext::closeEvent(QCloseEvent *event)
-{
-    event->accept();
-    qDebug() << "close event";
 }
 
 void    WindowNext::initValues(void)

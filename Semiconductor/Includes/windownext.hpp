@@ -74,10 +74,6 @@ class WindowNext : public QDialog
 
         QVector<QRadioButton*>  _radiobuttons;
         QVector<QComboBox*>     _comboboxes;
-    
-    protected:
-        void    closeEvent(QCloseEvent *event) override;
-
 };
 
 #endif // WINDOWNEXT_HPP

@@ -100,10 +100,3 @@ void    MainWindow::buttonNextAction(void)
         exit(1);
     }
 }
-
-void    MainWindow::closeEvent(QCloseEvent *event)
-{
-    event->accept();
-}
-
-
