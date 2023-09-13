@@ -452,6 +452,8 @@ void    WindowNext::initValues(void)
     _slots2State[11] = true;
     _slots2State[13] = true;
     _slots2State[15] = true;
+
+    this->readStateFromJSON();
 }
 
 void    WindowNext::saveStateToJSON(void)
@@ -469,10 +471,10 @@ void    WindowNext::saveStateToJSON(void)
         jsonObj["_comboBoxState" + QString::number(i)] = this->_comboboxes[i]->currentIndex();
 
     for (int i{}; i < 16; ++i)
+    {
         jsonObj["_slots1State" + QString::number(i)] = _slots1[i]->isChecked();
-
-    for (int i{}; i < 16; ++i)
         jsonObj["_slots2State" + QString::number(i)] = _slots2[i]->isChecked();
+    }
 
 
     // create a JSON document from the object
@@ -493,7 +495,52 @@ void    WindowNext::saveStateToJSON(void)
 
 void    WindowNext::readStateFromJSON(void)
 {
+    // check if the JSON file exists
+    QFile jsonFile(_JSONfilePath);
+    if(!jsonFile.exists())
+    {
+        qDebug() << "JSON file does not exist. The window will open with default values.";
+        return;
+    }
 
+    // open the JSON file for reading
+    if (jsonFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        // read the JSON document from the file
+        QByteArray jsonData = jsonFile.readAll();
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData);
+
+        // check if the JSON document is valid
+        if (!jsonDoc.isNull())
+        {
+            // convert the JSON document to a JSON object
+            QJsonObject jsonObj = jsonDoc.object();
+
+            // extract the values from the JSON object
+            _configIsActive = jsonObj["_configIsActive"].toBool();
+
+            for (int i{}; i < 5; ++i)
+                _radioBoxState[i] = jsonObj["_radioBoxState" + QString::number(i)].toBool();
+
+            for (int i{}; i < 4; ++i)
+                _comboBoxState[i] = jsonObj["_comboBoxState" + QString::number(i)].toInt();
+
+            for (int i{}; i < 16; ++i)
+            {
+                _slots1State[i] = jsonObj["_slots1State" + QString::number(i)].toBool();
+                _slots2State[i] = jsonObj["_slots2State" + QString::number(i)].toBool();
+            }
+
+            qDebug() << "Open state values successfully read from JSON file.";
+        }
+        else
+            qDebug() << "Failed to parse JSON document. The window will open with default values.";
+
+        // close the file
+        jsonFile.close();
+    }
+    else
+        qDebug() << "Failed to open JSON file for reading. The window will open with default values.";
 }
 
 QString WindowNext::getExecutableGrandparentDirPath(void)
