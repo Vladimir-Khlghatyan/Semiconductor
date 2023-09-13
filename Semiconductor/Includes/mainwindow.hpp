@@ -41,4 +41,5 @@ class MainWindow : public QMainWindow
         QToolButton *_buttonNext;
         WindowNext  *_windowNext;
 };
+
 #endif // MAINWINDOW_HPP

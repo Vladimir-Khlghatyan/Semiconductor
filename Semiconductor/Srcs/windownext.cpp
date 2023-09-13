@@ -558,5 +558,3 @@ QString WindowNext::getExecutableGrandparentDirPath(void)
     QString grandparentDirPath = parentDir.absolutePath();
     return grandparentDirPath;
 }
-
-

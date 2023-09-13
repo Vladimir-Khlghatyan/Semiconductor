@@ -96,4 +96,3 @@ class WindowNext : public QDialog
 };
 
 #endif // WINDOWNEXT_HPP
-
