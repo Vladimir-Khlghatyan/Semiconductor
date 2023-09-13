@@ -267,6 +267,11 @@ void    WindowNext::actionlessButton(void)
     msgBox.exec();
 }
 
+void    WindowNext::closeEvent(QCloseEvent *event)
+{
+    event->accept();
+}
+
 void    WindowNext::initValues(void)
 {
     _configIsActive = true;

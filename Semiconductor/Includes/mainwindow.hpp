@@ -5,6 +5,7 @@
 # include <QScreen>
 # include <QToolButton>
 # include <QMessageBox>
+# include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -39,5 +40,8 @@ class MainWindow : public QMainWindow
         QToolButton *_buttonAbout;
         QToolButton *_buttonNext;
         WindowNext  *_windowNext;
+        
+    protected:
+        void    closeEvent(QCloseEvent *event) override;
 };
 #endif // MAINWINDOW_HPP

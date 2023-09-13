@@ -9,6 +9,7 @@
 # include <QApplication>
 # include <QRadioButton>
 # include <QComboBox>
+# include <QCloseEvent>
 # include <QVector>
 # include "mainwindow.hpp"
 
@@ -73,6 +74,9 @@ class WindowNext : public QDialog
 
         QVector<QRadioButton*>  _radiobuttons;
         QVector<QComboBox*>     _comboboxes;
+    
+    protected:
+        void    closeEvent(QCloseEvent *event) override;
 
 };
 

@@ -1,6 +1,7 @@
 #include "mainwindow.hpp"
 #include "../ui_mainwindow.h"
 
+#include <QDebug>
 #include "windownext.hpp"
 #include "styles.hpp"
 
@@ -16,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     // create buttons "about" and "next" with appropriate parameters
     this->_buttonAbout = this->createButton(this, ":/Imgs/about.png", 420, 230, 80, 40, "about the application", &MainWindow::buttonAboutAction);
     this->_buttonNext = this->createButton(this, ":/Imgs/next.png", 530, 230, 80, 40, "go to CoreAPB3_C0*", &MainWindow::buttonNextAction);
+    
+    this->_windowNext = nullptr;
 }
 
 MainWindow::~MainWindow()
@@ -25,6 +28,7 @@ MainWindow::~MainWindow()
     delete _buttonAbout;
     delete _buttonNext;
     delete _windowNext;
+    _windowNext = nullptr;
 }
 
 void    MainWindow::putWindowOnScreen(int windowWidth, int windowHeight)
@@ -89,7 +93,20 @@ void    MainWindow::buttonNextAction(void)
     {
         this->_windowNext = new WindowNext(this);
         this->_windowNext->exec();
+        delete _windowNext;
+        _windowNext = nullptr;
     }
-    catch (...) {    }
+    catch (int ret) {
+        delete _windowNext;
+        _windowNext = nullptr;
+        qDebug() << "Can't create windowNext class object!";
+        exit(1);
+    }
 }
+
+void    MainWindow::closeEvent(QCloseEvent *event)
+{
+    event->accept();
+}
+
 
