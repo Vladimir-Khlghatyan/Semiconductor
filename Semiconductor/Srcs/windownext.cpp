@@ -1,7 +1,7 @@
 #include "windownext.hpp"
 #include <QDebug>
 #include <QPixmap>
-# include <QLayout>
+#include <QLayout>
 
 #include "styles.hpp"
 
@@ -10,34 +10,7 @@ WindowNext::WindowNext(MainWindow *parent)
 {
 
     // init values
-    _configIsActive = true;
-
-    _texts.push_back({"12", "16", "20", "24", "28", "32"});
-    _texts.push_back({"[27:24] (Ignored if master address width >= 32 bits)", \
-                      "[23:20] (Ignored if master address width >= 28 bits)", \
-                      "[19:16] (Ignored if master address width >= 24 bits)", \
-                      "[15:12] (Ignored if master address width >= 20 bits)", \
-                       "[11:8] (Ignored if master address width >= 16 bits)"});
-    _texts.push_back({"Not in use", \
-                      "Indirect address sourced from IADDR input port", \
-                      "Indirect address sourced from register(s) in slot 0 space", \
-                      "Indirect address sourced from register(s) in slot 1 space", \
-                      "Indirect address sourced from register(s) in slot 2 space", \
-                      "Indirect address sourced from register(s) in slot 3 space", \
-                      "Indirect address sourced from register(s) in slot 4 space", \
-                      "Indirect address sourced from register(s) in slot 5 space", \
-                      "Indirect address sourced from register(s) in slot 6 space", \
-                      "Indirect address sourced from register(s) in slot 7 space", \
-                      "Indirect address sourced from register(s) in slot 8 space", \
-                      "Indirect address sourced from register(s) in slot 9 space", \
-                      "Indirect address sourced from register(s) in slot 10 space", \
-                      "Indirect address sourced from register(s) in slot 11 space", \
-                      "Indirect address sourced from register(s) in slot 12 space", \
-                      "Indirect address sourced from register(s) in slot 13 space", \
-                      "Indirect address sourced from register(s) in slot 14 space", \
-                      "Indirect address sourced from register(s) in slot 15 space"});
-    _texts.push_back({"User", "Option1", "Option2", "Option3"});
-
+    this->initValues();
 
 
     // create window and put it on the screan
@@ -118,68 +91,37 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create section titles for 'Configuration' menu
-    const QStringList title1 = {"DATA WITH CONFIGURATION", \
-                                "ADDRESS CONFIGURATION", \
-                                "ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", \
-                                "ENABLED APB SLAVE SLOTS"};
-    const int coor1[4][4] = {{20,   1, 400, 25}, \
-                             {20,  58, 400, 25}, \
-                             {20, 175, 400, 25}, \
-                             {20, 322, 400, 25}};
     for (int i{}; i < 4; ++i)
     {
-        this->_sectionTitles.push_back(new QLabel(title1[i], _groupBoxConfig));
-        this->_sectionTitles[i]->setGeometry(coor1[i][0], coor1[i][1], coor1[i][2], coor1[i][3]);
+        this->_sectionTitles.push_back(new QLabel(_titles[0][i], _groupBoxConfig));
+        this->_sectionTitles[i]->setGeometry(_coord[0][i][0], _coord[0][i][1], _coord[0][i][2], _coord[0][i][3]);
         this->_sectionTitles[i]->setStyleSheet(CUSTOM_STYLE11);
     }
 
 
     // create 4 groupBoxes for 'Configuration' menu
-    // coordinates of groupBoxes on _groupBoxConfig
-    const int coor2[4][4] = {{1,  27, 787,  30}, \
-                             {1,  84, 787,  90}, \
-                             {1, 201, 787, 120}, \
-                             {1, 348, 787, 191}};
     for (int i{}; i < 4; ++i)
     {
         this->_groupBoxSections.push_back(new QGroupBox("", _groupBoxConfig));
-        this->_groupBoxSections[i]->setGeometry(coor2[i][0], coor2[i][1], coor2[i][2], coor2[i][3]);
+        this->_groupBoxSections[i]->setGeometry(_coord[1][i][0], _coord[1][i][1], _coord[1][i][2], _coord[1][i][3]);
         this->_groupBoxSections[i]->setStyleSheet(CUSTOM_STYLE12);
     }
 
 
     // create description texts for sections in 'Configuration' menu
-    const QStringList title2 = {"APB Master Data Bug Width", \
-                                "Number of address bits driven by master:", \
-                                "Position in slave address of upper 4 bits of master address:", \
-                                "Indirect Addressing:", "Testbench:", "License:"};
-    const int coor3[6][4] = {{30,   2, 180, 26}, \
-                             {30,   2, 365, 26}, \
-                             {30,  32, 365, 26}, \
-                             {30,  62, 365, 26}, \
-                             {30, 127,  70, 26}, \
-                             {30, 155,  70, 26}};
-    const int boxID1[6] = {0, 1, 1, 1, 3, 3};
     for (int i{}; i < 6; ++i)
     {
-        this->_descriptions.push_back(new QLabel(title2[i], _groupBoxSections[boxID1[i]]));
-        this->_descriptions[i]->setGeometry(coor3[i][0], coor3[i][1], coor3[i][2], coor3[i][3]);
+        this->_descriptions.push_back(new QLabel(_titles[1][i], _groupBoxSections[_boxID[0][i]]));
+        this->_descriptions[i]->setGeometry(_coord[2][i][0], _coord[2][i][1], _coord[2][i][2], _coord[2][i][3]);
         this->_descriptions[i]->setStyleSheet(CUSTOM_STYLE13);
     }
 
 
     // create radiobuttons
-    const QStringList title3 = {"32-bit", "16-bit", "8-bit", "Obfuscated", "RTL"};
-    const int coor4[5][4] = {{220,   2,  60, 26}, \
-                             {300,   2,  60, 26}, \
-                             {380,   2,  60, 26}, \
-                             {110, 155, 100, 26}, \
-                             {230, 155, 100, 26}};
-    const int boxID2[5] = {0, 0, 0, 3, 3};
     for (int i{}; i < 5; ++i)
     {
-        this->_radiobuttons.push_back(new QRadioButton(title3[i], _groupBoxSections[boxID2[i]]));
-        this->_radiobuttons[i]->setGeometry(coor4[i][0], coor4[i][1], coor4[i][2], coor4[i][3]);
+        this->_radiobuttons.push_back(new QRadioButton(_titles[2][i], _groupBoxSections[_boxID[1][i]]));
+        this->_radiobuttons[i]->setGeometry(_coord[3][i][0], _coord[3][i][1], _coord[3][i][2], _coord[3][i][3]);
         this->_radiobuttons[i]->setStyleSheet(CUSTOM_STYLE13);
         connect(_radiobuttons[i], &QRadioButton::clicked, this,
                 [=](void)
@@ -189,17 +131,12 @@ WindowNext::WindowNext(MainWindow *parent)
     }
 
 
-    //create comboboxes
-    const int coor5[4][4] = {{410,   2, 350, 26}, \
-                             {410,  32, 350, 26}, \
-                             {410,  62, 350, 26}, \
-                             {120, 127, 100, 26}};
-    const int boxID3[4] = {1, 1, 1, 3};
+    // create comboboxes
     for (int i{}; i < 4; ++i)
     {
-        this->_comboboxes.push_back(new QComboBox(_groupBoxSections[boxID3[i]]));
-        this->_comboboxes[i]->addItems(_texts[i]);
-        this->_comboboxes[i]->setGeometry(coor5[i][0], coor5[i][1], coor5[i][2], coor5[i][3]);
+        this->_comboboxes.push_back(new QComboBox(_groupBoxSections[_boxID[2][i]]));
+        this->_comboboxes[i]->addItems(_comboTexts[i]);
+        this->_comboboxes[i]->setGeometry(_coord[4][i][0], _coord[4][i][1], _coord[4][i][2], _coord[4][i][3]);
 //        this->_comboboxes[i]->setStyleSheet();
         connect(this->_comboboxes[i], &QComboBox::currentTextChanged, this,
                 [=](void)
@@ -328,6 +265,111 @@ void    WindowNext::actionlessButton(void)
     msgBox.addButton(QMessageBox::Ok);
     msgBox.setWindowIcon(QIcon(":/Imgs/logo.ico"));
     msgBox.exec();
+}
+
+void    WindowNext::initValues(void)
+{
+    _configIsActive = true;
+
+    // values for combobox "Number of address bits driven by master:"
+    _comboTexts.push_back({"12", "16", "20", "24", "28", "32"});
+    
+    
+    // ###################################### TITLES ########################################### 
+    
+    // values for combobox "Position in slave address of upper 4 bits of master address:"
+    _comboTexts.push_back({"[27:24] (Ignored if master address width >= 32 bits)", \
+                           "[23:20] (Ignored if master address width >= 28 bits)", \
+                           "[19:16] (Ignored if master address width >= 24 bits)", \
+                           "[15:12] (Ignored if master address width >= 20 bits)", \
+                           "[11:8] (Ignored if master address width >= 16 bits)"});
+        
+    // values for combobox "Indirect Addressing:"
+    _comboTexts.push_back({"Not in use", \
+                           "Indirect address sourced from IADDR input port", \
+                           "Indirect address sourced from register(s) in slot 0 space", \
+                           "Indirect address sourced from register(s) in slot 1 space", \
+                           "Indirect address sourced from register(s) in slot 2 space", \
+                           "Indirect address sourced from register(s) in slot 3 space", \
+                           "Indirect address sourced from register(s) in slot 4 space", \
+                           "Indirect address sourced from register(s) in slot 5 space", \
+                           "Indirect address sourced from register(s) in slot 6 space", \
+                           "Indirect address sourced from register(s) in slot 7 space", \
+                           "Indirect address sourced from register(s) in slot 8 space", \
+                           "Indirect address sourced from register(s) in slot 9 space", \
+                           "Indirect address sourced from register(s) in slot 10 space", \
+                           "Indirect address sourced from register(s) in slot 11 space", \
+                           "Indirect address sourced from register(s) in slot 12 space", \
+                           "Indirect address sourced from register(s) in slot 13 space", \
+                           "Indirect address sourced from register(s) in slot 14 space", \
+                           "Indirect address sourced from register(s) in slot 15 space"});
+    
+    // values for combobox "Testbench:"
+    _comboTexts.push_back({"User", "Option1", "Option2", "Option3"});
+    
+    
+    // titles for sections in "Configuration" menu
+    _titles.push_back({"DATA WITH CONFIGURATION", \
+                       "ADDRESS CONFIGURATION", \
+                       "ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", \
+                       "ENABLED APB SLAVE SLOTS"});
+    
+    // titles for descriptions in sections of "Configuration" manue
+    _titles.push_back({"APB Master Data Bug Width", \
+                       "Number of address bits driven by master:", \
+                       "Position in slave address of upper 4 bits of master address:", \
+                       "Indirect Addressing:", "Testbench:", "License:"});
+    
+    // titles for radiobuttons
+    _titles.push_back({"32-bit", "16-bit", "8-bit", "Obfuscated", "RTL"});
+    
+    
+    // ###################################### COORDINATES ###################################### 
+    
+    // coordinates for section titles in "Configuration" manue
+    _coord.push_back({{20,   1, 400, 25}, \
+                      {20,  58, 400, 25}, \
+                      {20, 175, 400, 25}, \
+                      {20, 322, 400, 25}});
+    
+    // coordinates for groupBoxes in "Configuration" manue
+    _coord.push_back({{1,  27, 787,  30}, \
+                      {1,  84, 787,  90}, \
+                      {1, 201, 787, 120}, \
+                      {1, 348, 787, 191}});
+    
+    // coordinates for description texts in 'Configuration' menu
+    _coord.push_back({{30,   2, 180, 26}, \
+                      {30,   2, 365, 26}, \
+                      {30,  32, 365, 26}, \
+                      {30,  62, 365, 26}, \
+                      {30, 127,  70, 26}, \
+                      {30, 155,  70, 26}});
+    
+    // coordinates for radiobuttons
+    _coord.push_back({{220,   2,  60, 26}, \
+                      {300,   2,  60, 26}, \
+                      {380,   2,  60, 26}, \
+                      {110, 155, 100, 26}, \
+                      {230, 155, 100, 26}});
+    
+    // coordinates for comboboxes
+    _coord.push_back({{410,   2, 350, 26}, \
+                      {410,  32, 350, 26}, \
+                      {410,  62, 350, 26}, \
+                      {120, 127, 140, 26}});
+    
+    
+    // ###################################### BOX IDs ######################################
+    
+    // groupbox IDs for _descriptions
+    _boxID.push_back({0, 1, 1, 1, 3, 3});
+    
+    // groupbox IDs for _radiobuttons
+    _boxID.push_back({0, 0, 0, 3, 3});
+    
+    // groupbox IDs for _comboboxes
+    _boxID.push_back({1, 1, 1, 3});
 }
 
 

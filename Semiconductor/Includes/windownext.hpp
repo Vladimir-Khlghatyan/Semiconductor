@@ -24,6 +24,7 @@ class WindowNext : public QDialog
         QToolButton*    createButton(QWidget *parent, const QString& iconPath, \
                                     int ax, int ay, int aw, int ah, const QString& toolTip, \
                                   const QString& style, void (WindowNext::*action)(void));
+        void            initValues(void);
 
     private slots:
         void    buttonSaveAction(void);
@@ -32,8 +33,11 @@ class WindowNext : public QDialog
         void    actionlessButton(void);
 
     private:
-        bool                        _configIsActive;
-        QVector<QStringList>    _texts;
+        bool                            _configIsActive;
+        QVector<QStringList>            _titles;
+        QVector<QStringList>            _comboTexts;
+        QVector<QVector<QVector<int>>>  _coord;
+        QVector<QVector<int>>           _boxID;
 
 
         QGroupBox   *_groupBoxSaveButton;
