@@ -155,7 +155,7 @@ WindowNext::WindowNext(MainWindow *parent)
     // create checkboxes int sections N2 and N3 (_slots1 and _slots2)
     for (int i{}; i < 16; ++i)
     {
-        QString name = "Slot " + QString::number(i) + ((i > 9) ? ":" : ":\u00A0"); // the Unicode non-breaking space character (\u00A0)
+        QString name = "Slot " + QString::number(i) + ((i > 9) ? ":" : ":\u00A0\u00A0"); // the Unicode non-breaking space character (\u00A0)
 
         _slots1.push_back(new QCheckBox(name, _groupBoxSections[2]));
         _slots2.push_back(new QCheckBox(name, _groupBoxSections[3]));
@@ -167,8 +167,8 @@ WindowNext::WindowNext(MainWindow *parent)
         _slots1[i]->setStyleSheet(CUSTOM_STYLE13);
         _slots2[i]->setStyleSheet(CUSTOM_STYLE13);
 
-        _slots1[i]->setGeometry(20 + 110 * (i % 4), 2 + 30 * (i / 4), 70, 26);
-        _slots2[i]->setGeometry(20 + 110 * (i % 4), 2 + 30 * (i / 4), 70, 26);
+        _slots1[i]->setGeometry(20 + 120 * (i % 4), 2 + 30 * (i / 4), 70, 26);
+        _slots2[i]->setGeometry(20 + 120 * (i % 4), 2 + 30 * (i / 4), 70, 26);
 
         _slots1[i]->setChecked(_slots1State[i]);
         _slots2[i]->setChecked(_slots2State[i]);
