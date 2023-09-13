@@ -36,4 +36,26 @@
 
 # define CUSTOM_STYLE13 "color: black; border: node; font-size: 14px;"
 
+# define CUSTOM_STYLE14 "QComboBox {"\
+                        "   padding: 5px;"\
+                        "   border-radius: 5px;"\
+                        "   font-size: 13px;"\
+                        "   border: 1px solid #c1c2c9;"\
+                        "   background: solid white;"\
+                        "}"\
+                        "QComboBox::drop-down {"\
+                        "   subcontrol-origin: padding;"\
+                        "   subcontrol-position: right center;"\
+                        "   width: 17px;"\
+                        "   height: 17px;"\
+                        "   border-radius: 5px;"\
+                        "   border: 2px solid white;"\
+                        "   background: solid #e7ebee;"\
+                        "}"\
+                        "QComboBox::down-arrow {"\
+                        "   image: url(:/Imgs/arrow.png);"\
+                        "   width: 15px;"\
+                        "   height: 15px;"\
+                        "}"
+
 #endif // STYLES_HPP

@@ -138,7 +138,7 @@ WindowNext::WindowNext(MainWindow *parent)
         this->_comboboxes.push_back(new QComboBox(_groupBoxSections[_boxID[2][i]]));
         this->_comboboxes[i]->addItems(_comboTexts[i]);
         this->_comboboxes[i]->setGeometry(_coord[4][i][0], _coord[4][i][1], _coord[4][i][2], _coord[4][i][3]);
-//        this->_comboboxes[i]->setStyleSheet();
+        this->_comboboxes[i]->setStyleSheet(CUSTOM_STYLE14);
         connect(this->_comboboxes[i], &QComboBox::currentTextChanged, this,
                 [=](void)
                 {
@@ -276,7 +276,7 @@ void    WindowNext::initValues(void)
 
     // values for combobox "Number of address bits driven by master:"
     _comboTexts.push_back({"12", "16", "20", "24", "28", "32"});
-    
+
     
     // ###################################### TITLES ########################################### 
     
@@ -285,7 +285,7 @@ void    WindowNext::initValues(void)
                            "[23:20] (Ignored if master address width >= 28 bits)", \
                            "[19:16] (Ignored if master address width >= 24 bits)", \
                            "[15:12] (Ignored if master address width >= 20 bits)", \
-                           "[11:8] (Ignored if master address width >= 16 bits)"});
+                            "[11:8] (Ignored if master address width >= 16 bits)"});
         
     // values for combobox "Indirect Addressing:"
     _comboTexts.push_back({"Not in use", \
@@ -360,7 +360,7 @@ void    WindowNext::initValues(void)
     _coord.push_back({{410,   2, 350, 26}, \
                       {410,  32, 350, 26}, \
                       {410,  62, 350, 26}, \
-                      {120, 127, 140, 26}});
+                      {110, 127, 140, 26}});
     
     
     // ###################################### BOX IDs ######################################
