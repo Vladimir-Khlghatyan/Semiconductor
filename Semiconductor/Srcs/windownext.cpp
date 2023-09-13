@@ -92,13 +92,11 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_groupBoxTools = new QGroupBox("", this);
     this->_groupBoxTools->setGeometry(5, 154, 790, 541);
     this->_groupBoxTools->setStyleSheet(CUSTOM_STYLE9);
-    if (_configIsActive == true)
-    {
+    if (_configIsActive) {
         _groupBoxConfig->show();
         _groupBoxTools->hide();
     }
-    else
-    {
+    else {
         _groupBoxConfig->hide();
         _groupBoxTools->show();
     }
