@@ -145,6 +145,22 @@ WindowNext::WindowNext(MainWindow *parent)
                     qDebug() << _comboboxes[i]->currentText();
                 });
     }
+
+
+    // create checkboxes
+//    int ax_, ay, wx = 150, hy = 26;
+    for (int i{}; i < 16; ++i)
+    {
+        QString name = "Slot ";
+        _slots2.push_back(new QCheckBox(name + QString::number(i) + ":", _groupBoxSections[3]));
+        _slots2[i]->setLayoutDirection(Qt::RightToLeft);
+        _slots2[i]->setStyleSheet(CUSTOM_STYLE13);
+//        _slots2[i]->setGeometry(, , , hy);
+    }
+
+    _slots2[0]->setGeometry(20, 50, 150, 26);
+
+
 }
 
 WindowNext::~WindowNext()

@@ -10,6 +10,7 @@
 # include <QRadioButton>
 # include <QComboBox>
 # include <QCloseEvent>
+# include <QCheckBox>
 # include <QVector>
 # include "mainwindow.hpp"
 
@@ -74,6 +75,9 @@ class WindowNext : public QDialog
 
         QVector<QRadioButton*>  _radiobuttons;
         QVector<QComboBox*>     _comboboxes;
+
+        QVector<QCheckBox*>     _slots1;
+        QVector<QCheckBox*>     _slots2;
 };
 
 #endif // WINDOWNEXT_HPP
