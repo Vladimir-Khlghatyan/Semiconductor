@@ -35,34 +35,37 @@ class WindowNext : public QDialog
         void    actionlessButton(void);
 
     private:
-        bool                            _configIsActive;
-        QVector<QStringList>            _titles;
-        QVector<QStringList>            _comboTexts;
-        QVector<QVector<QVector<int>>>  _coord;
-        QVector<QVector<int>>           _boxID;
+        // variables to store open state defaults
+        bool            _configIsActive;
+        QVector<bool>   _radioBoxState;
+        QVector<int>    _comboBoxState;
+        QVector<bool>   _slots1State;
+        QVector<bool>   _slots2State;
 
-
+        // initial groupbox with buttons 'Save', 'Print' and 'Resize'
         QGroupBox   *_groupBoxSaveButton;
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;
         QToolButton *_buttonResize;
 
+        // window title
         QLabel      *_title;
 
+        // groupbox with buttons 'Generate', 'DRC' and 'Help'
         QGroupBox   *_groupBoxGenerateButton;
         QToolButton *_buttonGenerate;
         QToolButton *_buttonDRC;
         QToolButton *_buttonHelp;
 
+        // Configuration / Tools menu buttons and groupboxes
         QToolButton *_buttonConfig;
         QToolButton *_buttonTools;
         QLabel      *_blueLine;
-
         QGroupBox   *_groupBoxConfig;
         QGroupBox   *_groupBoxTools;
         QLabel      *_underConstraction;
 
-        // Titles and groupboxes for four sections in 'Configuration' menu:
+        // Titles and subgroupboxes for 4 sections in 'Configuration' menu:
         //  0) DATA WITH CONFIGURATION
         //  1) ADDRESS CONFIGURATION
         //  2) ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE
@@ -73,11 +76,17 @@ class WindowNext : public QDialog
         // description texts in groupboxes
         QVector<QLabel*>        _descriptions;
 
+        // radiobuttons, comboboxes and checkboxes
         QVector<QRadioButton*>  _radiobuttons;
         QVector<QComboBox*>     _comboboxes;
-
         QVector<QCheckBox*>     _slots1;
         QVector<QCheckBox*>     _slots2;
+
+        // additional variables to store information needed to initialize QT objects
+        QVector<QStringList>            _titles;
+        QVector<QStringList>            _comboTexts;
+        QVector<QVector<QVector<int>>>  _coord;
+        QVector<QVector<int>>           _boxID;
 };
 
 #endif // WINDOWNEXT_HPP

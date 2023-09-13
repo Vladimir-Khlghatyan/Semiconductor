@@ -24,14 +24,13 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create buttons "save", "print" and "resize" with appropriate parameters
-    this->_buttonSave = nullptr;
     this->_buttonSave = this->createButton(_groupBoxSaveButton, ":/Imgs/save.png", 10, 3, 24, 24, "save", CUSTOM_STYLE3, &WindowNext::buttonSaveAction);
     this->_buttonPrint = this->createButton(_groupBoxSaveButton, ":/Imgs/print.png", 50, 3, 24, 24, "print", CUSTOM_STYLE3, &WindowNext::actionlessButton);
     this->_buttonResize = this->createButton(_groupBoxSaveButton, ":/Imgs/resize.png", 90, 3, 24, 24, "resize", CUSTOM_STYLE3, &WindowNext::actionlessButton);
 
-
     // disable button "print
     _buttonPrint->setEnabled(false);
+
 
     // create first label with appropriate parameters and style
     this->_title = new QLabel("COREAPB3:4.2.100", this);
@@ -58,7 +57,7 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_blueLine->setGeometry(ax, 151, 130, 2);
 
 
-    // create groupBox for Configuration/Tools menu
+    // create groupBoxes for Configuration/Tools menu
     this->_groupBoxConfig = new QGroupBox("", this);
     this->_groupBoxConfig->setGeometry(5, 154, 790, 541);
     this->_groupBoxConfig->setStyleSheet(CUSTOM_STYLE9);
@@ -124,6 +123,7 @@ WindowNext::WindowNext(MainWindow *parent)
         this->_radiobuttons.push_back(new QRadioButton(_titles[2][i], _groupBoxSections[_boxID[1][i]]));
         this->_radiobuttons[i]->setGeometry(_coord[3][i][0], _coord[3][i][1], _coord[3][i][2], _coord[3][i][3]);
         this->_radiobuttons[i]->setStyleSheet(CUSTOM_STYLE13);
+        this->_radiobuttons[i]->setChecked(_radioBoxState[i]);
         connect(_radiobuttons[i], &QRadioButton::clicked, this,
                 [=](void)
                 {
@@ -139,6 +139,7 @@ WindowNext::WindowNext(MainWindow *parent)
         this->_comboboxes[i]->addItems(_comboTexts[i]);
         this->_comboboxes[i]->setGeometry(_coord[4][i][0], _coord[4][i][1], _coord[4][i][2], _coord[4][i][3]);
         this->_comboboxes[i]->setStyleSheet(CUSTOM_STYLE14);
+        this->_comboboxes[i]->setCurrentIndex(_comboBoxState[i]);
         connect(this->_comboboxes[i], &QComboBox::currentTextChanged, this,
                 [=](void)
                 {
@@ -165,8 +166,10 @@ WindowNext::WindowNext(MainWindow *parent)
         _slots1[i]->setGeometry(20 + 110 * (i % 4), 2 + 30 * (i / 4), 70, 26);
         _slots2[i]->setGeometry(20 + 110 * (i % 4), 2 + 30 * (i / 4), 70, 26);
 
-        //_slots1[i]->setChecked();
-        //_slots2[i]->setChecked();
+        _slots1[i]->setChecked(_slots1State[i]);
+        _slots2[i]->setChecked(_slots2State[i]);
+
+        _slots2[i]->setEnabled(!_slots1[i]->isChecked());
 
         connect(_slots1[i], &QCheckBox::stateChanged, this,
                 [=](void)
@@ -315,14 +318,11 @@ void    WindowNext::actionlessButton(void)
 
 void    WindowNext::initValues(void)
 {
-    _configIsActive = true;
+    // ###################################### TITLES ###########################################
 
     // values for combobox "Number of address bits driven by master:"
     _comboTexts.push_back({"12", "16", "20", "24", "28", "32"});
 
-    
-    // ###################################### TITLES ########################################### 
-    
     // values for combobox "Position in slave address of upper 4 bits of master address:"
     _comboTexts.push_back({"[27:24] (Ignored if master address width >= 32 bits)", \
                            "[23:20] (Ignored if master address width >= 28 bits)", \
@@ -416,6 +416,35 @@ void    WindowNext::initValues(void)
     
     // groupbox IDs for _comboboxes
     _boxID.push_back({1, 1, 1, 3});
+
+
+    // ############################### Open State Defaults ###############################
+    _configIsActive = true;
+
+    for (int i{}; i < 5; ++i)
+        _radioBoxState.push_back(false);
+    _radioBoxState[0] = true;   // 32-bit
+    _radioBoxState[4] = true;   // RTL
+
+    _comboBoxState.push_back(4);    // 28
+    _comboBoxState.push_back(0);    // [27:24] (Ignored if master address width >= 32 bits)
+    _comboBoxState.push_back(0);    // Not in use
+    _comboBoxState.push_back(0);    // User
+
+    for (int i{}; i < 16; ++i)
+        _slots1State.push_back(false);
+    _slots1State[9] = true;
+    _slots1State[10] = true;
+    _slots1State[13] = true;
+
+    for (int i{}; i < 16; ++i)
+        _slots2State.push_back(false);
+    _slots2State[3] = true;
+    _slots2State[7] = true;
+    _slots2State[9] = true;
+    _slots2State[11] = true;
+    _slots2State[13] = true;
+    _slots2State[15] = true;
 }
 
 
