@@ -89,59 +89,54 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create section titles for 'Configuration' menu
-    const QString title[4] = {"DATA WITH CONFIGURATION", \
+    const QString title1[4] = {"DATA WITH CONFIGURATION", \
                               "ADDRESS CONFIGURATION", \
                               "ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", \
                               "ENABLED APB SLAVE SLOTS"};
-    const int coor[4][4] = {{20, 1  , 400, 25}, \
-                            {20, 58 , 400, 25}, \
-                            {20, 175, 400, 25}, \
-                            {20, 322, 400, 25}};
+    const int coor1[4][4] = {{20,   1, 400, 25}, \
+                             {20,  58, 400, 25}, \
+                             {20, 175, 400, 25}, \
+                             {20, 322, 400, 25}};
     for (int i{}; i < 4; ++i)
     {
-        this->_sectionTitles.push_back(new QLabel(title[i], _groupBoxConfig));
-        this->_sectionTitles[i]->setGeometry(coor[i][0], coor[i][1], coor[i][2], coor[i][3]);
+        this->_sectionTitles.push_back(new QLabel(title1[i], _groupBoxConfig));
+        this->_sectionTitles[i]->setGeometry(coor1[i][0], coor1[i][1], coor1[i][2], coor1[i][3]);
         this->_sectionTitles[i]->setStyleSheet(CUSTOM_STYLE11);
     }
 
 
     // create 4 groupBoxes for 'Configuration' menu
     // coordinates of groupBoxes on _groupBoxConfig
-    const int coor_[4][4] = {{1, 27 , 787, 30}, \
-                             {1, 84 , 787, 90}, \
+    const int coor2[4][4] = {{1,  27, 787,  30}, \
+                             {1,  84, 787,  90}, \
                              {1, 201, 787, 120}, \
                              {1, 348, 787, 191}};
     for (int i{}; i < 4; ++i)
     {
         this->_groupBoxSections.push_back(new QGroupBox("", _groupBoxConfig));
-        this->_groupBoxSections[i]->setGeometry(coor_[i][0], coor_[i][1], coor_[i][2], coor_[i][3]);
+        this->_groupBoxSections[i]->setGeometry(coor2[i][0], coor2[i][1], coor2[i][2], coor2[i][3]);
         this->_groupBoxSections[i]->setStyleSheet(CUSTOM_STYLE12);
     }
 
-    // create description text for sections in  'Configuration' menu
-    this->_description0 = new QLabel("APB Master Data Bug Width", _groupBoxSections[0]);
-    this->_description0->setGeometry(30, 2, 180, 26);
-    this->_description0->setStyleSheet(CUSTOM_STYLE13);
 
-    this->_description1 = new QLabel("Number of address bits driven by master:", _groupBoxSections[1]);
-    this->_description1->setGeometry(30, 2, 365, 26);
-    this->_description1->setStyleSheet(CUSTOM_STYLE13);
-
-    this->_description2 = new QLabel("Position in slave address of upper 4 bits of master address:", _groupBoxSections[1]);
-    this->_description2->setGeometry(30, 32, 365, 26);
-    this->_description2->setStyleSheet(CUSTOM_STYLE13);
-
-    this->_description3 = new QLabel("Indirect Addressing:", _groupBoxSections[1]);
-    this->_description3->setGeometry(30, 62, 365, 26);
-    this->_description3->setStyleSheet(CUSTOM_STYLE13);
-
-    this->_description4 = new QLabel("Testbench:", _groupBoxSections[3]);
-    this->_description4->setGeometry(30, 127, 70, 26);
-    this->_description4->setStyleSheet(CUSTOM_STYLE13);
-
-    this->_description5 = new QLabel("License:", _groupBoxSections[3]);
-    this->_description5->setGeometry(30, 155, 70, 26);
-    this->_description5->setStyleSheet(CUSTOM_STYLE13);
+    // create description texts for sections in 'Configuration' menu
+    const QString title2[6] = {"APB Master Data Bug Width", \
+                               "Number of address bits driven by master:", \
+                               "Position in slave address of upper 4 bits of master address:", \
+                               "Indirect Addressing:", "Testbench:", "License:"};
+    const int coor3[6][4] = {{30,   2, 180, 26}, \
+                             {30,   2, 365, 26}, \
+                             {30,  32, 365, 26}, \
+                             {30,  62, 365, 26}, \
+                             {30, 127,  70, 26}, \
+                             {30, 155,  70, 26}};
+    const int boxID[6] = {0, 1, 1, 1, 3, 3};
+    for (int i{}; i < 6; ++i)
+    {
+        this->_descriptions.push_back(new QLabel(title2[i], _groupBoxSections[boxID[i]]));
+        this->_descriptions[i]->setGeometry(coor3[i][0], coor3[i][1], coor3[i][2], coor3[i][3]);
+        this->_descriptions[i]->setStyleSheet(CUSTOM_STYLE13);
+    }
 }
 
 WindowNext::~WindowNext()
@@ -168,12 +163,8 @@ WindowNext::~WindowNext()
     for (auto groupBox : _groupBoxSections)
         delete groupBox;
 
-    delete _description0;
-    delete _description1;
-    delete _description2;
-    delete _description3;
-    delete _description4;
-    delete _description5;
+    for (auto _description : _descriptions)
+        delete _description;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)

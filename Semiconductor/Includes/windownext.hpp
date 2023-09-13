@@ -58,12 +58,8 @@ class WindowNext : public QDialog
         QVector<QLabel*>    _sectionTitles;
         QVector<QGroupBox*> _groupBoxSections;
 
-        QLabel      *_description0;
-        QLabel      *_description1;
-        QLabel      *_description2;
-        QLabel      *_description3;
-        QLabel      *_description4;
-        QLabel      *_description5;
+        // description texts in groupboxes
+        QVector<QLabel*>    _descriptions;
 
         bool        _configIsActive;
 };
