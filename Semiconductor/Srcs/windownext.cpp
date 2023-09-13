@@ -147,19 +147,40 @@ WindowNext::WindowNext(MainWindow *parent)
     }
 
 
-    // create checkboxes
-//    int ax_, ay, wx = 150, hy = 26;
+    // create checkboxes int sections N2 and N3 (_slots1 and _slots2)
     for (int i{}; i < 16; ++i)
     {
-        QString name = "Slot ";
-        _slots2.push_back(new QCheckBox(name + QString::number(i) + ":", _groupBoxSections[3]));
+        QString name = "Slot " + QString::number(i) + ((i > 9) ? ":" : ":\u00A0"); // the Unicode non-breaking space character (\u00A0)
+
+        _slots1.push_back(new QCheckBox(name, _groupBoxSections[2]));
+        _slots2.push_back(new QCheckBox(name, _groupBoxSections[3]));
+
+        _slots1[i]->setLayoutDirection(Qt::RightToLeft);
         _slots2[i]->setLayoutDirection(Qt::RightToLeft);
+
+
+        _slots1[i]->setStyleSheet(CUSTOM_STYLE13);
         _slots2[i]->setStyleSheet(CUSTOM_STYLE13);
-//        _slots2[i]->setGeometry(, , , hy);
+
+        _slots1[i]->setGeometry(20 + 110 * (i % 4), 2 + 30 * (i / 4), 70, 26);
+        _slots2[i]->setGeometry(20 + 110 * (i % 4), 2 + 30 * (i / 4), 70, 26);
+
+        //_slots1[i]->setChecked();
+        //_slots2[i]->setChecked();
+
+        connect(_slots1[i], &QCheckBox::stateChanged, this,
+                [=](void)
+                {
+                    _slots2[i]->setEnabled(!_slots1[i]->isChecked());
+                    qDebug() << name + (_slots1[i]->isChecked() ? " [v]" : " [ ]");
+                });
+
+        connect(_slots2[i], &QCheckBox::stateChanged, this,
+                [=](void)
+                {
+                    qDebug() << name + (_slots2[i]->isChecked() ? " [v]" : " [ ]");
+                });
     }
-
-    _slots2[0]->setGeometry(20, 50, 150, 26);
-
 
 }
 
@@ -191,6 +212,12 @@ WindowNext::~WindowNext()
 
     for (auto _combobox : _comboboxes)
         delete _combobox;
+
+    for (auto _slot : _slots1)
+        delete _slot;
+
+    for (auto _slot : _slots2)
+        delete _slot;
 
     for (auto groupBox : _groupBoxSections)
         delete groupBox;
