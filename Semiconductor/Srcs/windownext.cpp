@@ -2,6 +2,11 @@
 #include <QDebug>
 #include <QPixmap>
 #include <QLayout>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QStandardPaths>
+#include <QDir>
 
 #include "styles.hpp"
 
@@ -11,7 +16,6 @@ WindowNext::WindowNext(MainWindow *parent)
 
     // init values
     this->initValues();
-
 
     // create window and put it on the screan
     this->putWindowOnScreen(800, 700);
@@ -276,7 +280,7 @@ QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPat
 // action for 'save' button
 void    WindowNext::buttonSaveAction(void)
 {
-    // write code here
+    this->saveStateToJSON();
 }
 
 // action for 'Configuration' button
@@ -318,6 +322,9 @@ void    WindowNext::actionlessButton(void)
 
 void    WindowNext::initValues(void)
 {
+
+    _JSONfilePath = this->getExecutableGrandparentDirPath() + "/state/state.json";
+
     // ###################################### TITLES ###########################################
 
     // values for combobox "Number of address bits driven by master:"
@@ -445,6 +452,59 @@ void    WindowNext::initValues(void)
     _slots2State[11] = true;
     _slots2State[13] = true;
     _slots2State[15] = true;
+}
+
+void    WindowNext::saveStateToJSON(void)
+{
+    // Create a JSON object
+    QJsonObject jsonObj;
+
+    // set values in JSON object
+    jsonObj["_configIsActive"] = _configIsActive;
+
+    for (int i{}; i < 5; ++i)
+        jsonObj["_radioBoxState" + QString::number(i)] = this->_radiobuttons[i]->isChecked();
+
+    for (int i{}; i < 4; ++i)
+        jsonObj["_comboBoxState" + QString::number(i)] = this->_comboboxes[i]->currentIndex();
+
+    for (int i{}; i < 16; ++i)
+        jsonObj["_slots1State" + QString::number(i)] = _slots1[i]->isChecked();
+
+    for (int i{}; i < 16; ++i)
+        jsonObj["_slots2State" + QString::number(i)] = _slots2[i]->isChecked();
+
+
+    // create a JSON document from the object
+    QJsonDocument jsonDoc(jsonObj);
+
+    // open a file for writing
+    QFile file(_JSONfilePath);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        // write the JSON document to the file
+        file.write(jsonDoc.toJson());
+        file.close();
+        qDebug() << "JSON file saved successfully!";
+    }
+    else
+        qDebug() << "Failed to open JSON file for writing.";
+}
+
+QString WindowNext::getExecutableGrandparentDirPath(void)
+{
+    QString executableDirPath = QCoreApplication::applicationDirPath();
+    QDir parentDir(executableDirPath);
+
+    int up{1};
+    #ifdef Q_OS_MAC
+    up += 3;
+    #endif
+
+    while (up--)
+        parentDir.cdUp();
+    QString grandparentDirPath = parentDir.absolutePath();
+    return grandparentDirPath;
 }
 
 

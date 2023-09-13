@@ -22,11 +22,15 @@ class WindowNext : public QDialog
         WindowNext(MainWindow *parent);
         ~WindowNext();
 
-        void            putWindowOnScreen(int windowWidth, int windowHeight);
+    private:
+        void    initValues(void);
+        void    putWindowOnScreen(int windowWidth, int windowHeight);
+        void    saveStateToJSON(void);
+        QString getExecutableGrandparentDirPath(void);
+
         QToolButton*    createButton(QWidget *parent, const QString& iconPath, \
                                     int ax, int ay, int aw, int ah, const QString& toolTip, \
-                                  const QString& style, void (WindowNext::*action)(void));
-        void            initValues(void);
+                                  const QString& style, void (WindowNext::*action)(void));        
 
     private slots:
         void    buttonSaveAction(void);
@@ -36,6 +40,7 @@ class WindowNext : public QDialog
 
     private:
         // variables to store open state defaults
+        QString         _JSONfilePath;
         bool            _configIsActive;
         QVector<bool>   _radioBoxState;
         QVector<int>    _comboBoxState;
