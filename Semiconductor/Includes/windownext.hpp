@@ -7,6 +7,7 @@
 # include <QGroupBox>
 # include <QLabel>
 # include <QApplication>
+# include <QRadioButton>
 # include <QVector>
 # include "mainwindow.hpp"
 
@@ -59,7 +60,9 @@ class WindowNext : public QDialog
         QVector<QGroupBox*> _groupBoxSections;
 
         // description texts in groupboxes
-        QVector<QLabel*>    _descriptions;
+        QVector<QLabel*>        _descriptions;
+
+        QVector<QRadioButton*>  _radiobuttons;
 
         bool        _configIsActive;
 };

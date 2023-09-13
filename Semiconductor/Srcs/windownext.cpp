@@ -130,12 +130,33 @@ WindowNext::WindowNext(MainWindow *parent)
                              {30,  62, 365, 26}, \
                              {30, 127,  70, 26}, \
                              {30, 155,  70, 26}};
-    const int boxID[6] = {0, 1, 1, 1, 3, 3};
+    const int boxID1[6] = {0, 1, 1, 1, 3, 3};
     for (int i{}; i < 6; ++i)
     {
-        this->_descriptions.push_back(new QLabel(title2[i], _groupBoxSections[boxID[i]]));
+        this->_descriptions.push_back(new QLabel(title2[i], _groupBoxSections[boxID1[i]]));
         this->_descriptions[i]->setGeometry(coor3[i][0], coor3[i][1], coor3[i][2], coor3[i][3]);
         this->_descriptions[i]->setStyleSheet(CUSTOM_STYLE13);
+    }
+
+
+    // create radiobuttons
+    const QString title3[5] = {"32-bit", "16-bit", "8-bit", "Obfuscated", "RTL"};
+    const int coor4[5][4] = {{220,   2,  60, 26}, \
+                             {300,   2,  60, 26}, \
+                             {380,   2,  60, 26}, \
+                             {110, 155, 100, 26}, \
+                             {230, 155, 100, 26}};
+    const int boxID2[5] = {0, 0, 0, 3, 3};
+    for (int i{}; i < 5; ++i)
+    {
+        this->_radiobuttons.push_back(new QRadioButton(title3[i], _groupBoxSections[boxID2[i]]));
+        this->_radiobuttons[i]->setGeometry(coor4[i][0], coor4[i][1], coor4[i][2], coor4[i][3]);
+        this->_radiobuttons[i]->setStyleSheet(CUSTOM_STYLE13);
+        connect(_radiobuttons[i], &QRadioButton::clicked, this,
+                [=](void)
+                {
+                    qDebug() << _radiobuttons[i]->text();
+                });
     }
 }
 
@@ -165,6 +186,9 @@ WindowNext::~WindowNext()
 
     for (auto _description : _descriptions)
         delete _description;
+
+    for (auto _radiobutton : _radiobuttons)
+        delete _radiobutton;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
