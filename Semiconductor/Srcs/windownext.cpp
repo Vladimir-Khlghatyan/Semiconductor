@@ -8,6 +8,38 @@
 WindowNext::WindowNext(MainWindow *parent)
     : QDialog(parent)
 {
+
+    // init values
+    _configIsActive = true;
+
+    _texts.push_back({"12", "16", "20", "24", "28", "32"});
+    _texts.push_back({"[27:24] (Ignored if master address width >= 32 bits)", \
+                      "[23:20] (Ignored if master address width >= 28 bits)", \
+                      "[19:16] (Ignored if master address width >= 24 bits)", \
+                      "[15:12] (Ignored if master address width >= 20 bits)", \
+                       "[11:8] (Ignored if master address width >= 16 bits)"});
+    _texts.push_back({"Not in use", \
+                      "Indirect address sourced from IADDR input port", \
+                      "Indirect address sourced from register(s) in slot 0 space", \
+                      "Indirect address sourced from register(s) in slot 1 space", \
+                      "Indirect address sourced from register(s) in slot 2 space", \
+                      "Indirect address sourced from register(s) in slot 3 space", \
+                      "Indirect address sourced from register(s) in slot 4 space", \
+                      "Indirect address sourced from register(s) in slot 5 space", \
+                      "Indirect address sourced from register(s) in slot 6 space", \
+                      "Indirect address sourced from register(s) in slot 7 space", \
+                      "Indirect address sourced from register(s) in slot 8 space", \
+                      "Indirect address sourced from register(s) in slot 9 space", \
+                      "Indirect address sourced from register(s) in slot 10 space", \
+                      "Indirect address sourced from register(s) in slot 11 space", \
+                      "Indirect address sourced from register(s) in slot 12 space", \
+                      "Indirect address sourced from register(s) in slot 13 space", \
+                      "Indirect address sourced from register(s) in slot 14 space", \
+                      "Indirect address sourced from register(s) in slot 15 space"});
+    _texts.push_back({"User", "Option1", "Option2", "Option3"});
+
+
+
     // create window and put it on the screan
     this->putWindowOnScreen(800, 700);
     this->setModal(true);
@@ -44,7 +76,6 @@ WindowNext::WindowNext(MainWindow *parent)
     this->_buttonDRC = this->createButton(_groupBoxGenerateButton, ":/Imgs/drc.png", 120, 3, 65, 24, "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
     this->_buttonHelp = this->createButton(_groupBoxGenerateButton, ":/Imgs/help.png", 200, 3, 65, 24, "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
 
-    _configIsActive = true;
 
     // create blue line to switch from Configuration to Tools
     this->_blueLine = new QLabel("", this);
@@ -89,10 +120,10 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create section titles for 'Configuration' menu
-    const QString title1[4] = {"DATA WITH CONFIGURATION", \
-                              "ADDRESS CONFIGURATION", \
-                              "ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", \
-                              "ENABLED APB SLAVE SLOTS"};
+    const QStringList title1 = {"DATA WITH CONFIGURATION", \
+                                "ADDRESS CONFIGURATION", \
+                                "ALLOCATE MEMORY SPACE TO COMBINED REGION SLAVE", \
+                                "ENABLED APB SLAVE SLOTS"};
     const int coor1[4][4] = {{20,   1, 400, 25}, \
                              {20,  58, 400, 25}, \
                              {20, 175, 400, 25}, \
@@ -120,10 +151,10 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create description texts for sections in 'Configuration' menu
-    const QString title2[6] = {"APB Master Data Bug Width", \
-                               "Number of address bits driven by master:", \
-                               "Position in slave address of upper 4 bits of master address:", \
-                               "Indirect Addressing:", "Testbench:", "License:"};
+    const QStringList title2 = {"APB Master Data Bug Width", \
+                                "Number of address bits driven by master:", \
+                                "Position in slave address of upper 4 bits of master address:", \
+                                "Indirect Addressing:", "Testbench:", "License:"};
     const int coor3[6][4] = {{30,   2, 180, 26}, \
                              {30,   2, 365, 26}, \
                              {30,  32, 365, 26}, \
@@ -140,7 +171,7 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create radiobuttons
-    const QString title3[5] = {"32-bit", "16-bit", "8-bit", "Obfuscated", "RTL"};
+    const QStringList title3 = {"32-bit", "16-bit", "8-bit", "Obfuscated", "RTL"};
     const int coor4[5][4] = {{220,   2,  60, 26}, \
                              {300,   2,  60, 26}, \
                              {380,   2,  60, 26}, \
@@ -156,6 +187,26 @@ WindowNext::WindowNext(MainWindow *parent)
                 [=](void)
                 {
                     qDebug() << _radiobuttons[i]->text();
+                });
+    }
+
+
+    //create comboboxes
+    const int coor5[4][4] = {{410,   2, 350, 26}, \
+                             {410,  32, 350, 26}, \
+                             {410,  62, 350, 26}, \
+                             {120, 127, 100, 26}};
+    const int boxID3[4] = {1, 1, 1, 3};
+    for (int i{}; i < 4; ++i)
+    {
+        this->_comboboxes.push_back(new QComboBox(_groupBoxSections[boxID3[i]]));
+        this->_comboboxes[i]->addItems(_texts[i]);
+        this->_comboboxes[i]->setGeometry(coor5[i][0], coor5[i][1], coor5[i][2], coor5[i][3]);
+//        this->_comboboxes[i]->setStyleSheet();
+        connect(this->_comboboxes[i], &QComboBox::currentTextChanged, this,
+                [=](void)
+                {
+                    qDebug() << _comboboxes[i]->currentText();
                 });
     }
 }
@@ -189,6 +240,9 @@ WindowNext::~WindowNext()
 
     for (auto _radiobutton : _radiobuttons)
         delete _radiobutton;
+
+    for (auto _combobox : _comboboxes)
+        delete _combobox;
 }
 
 void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)

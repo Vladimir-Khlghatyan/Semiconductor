@@ -8,6 +8,7 @@
 # include <QLabel>
 # include <QApplication>
 # include <QRadioButton>
+# include <QComboBox>
 # include <QVector>
 # include "mainwindow.hpp"
 
@@ -31,6 +32,10 @@ class WindowNext : public QDialog
         void    actionlessButton(void);
 
     private:
+        bool                        _configIsActive;
+        QVector<QStringList>    _texts;
+
+
         QGroupBox   *_groupBoxSaveButton;
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;
@@ -63,8 +68,8 @@ class WindowNext : public QDialog
         QVector<QLabel*>        _descriptions;
 
         QVector<QRadioButton*>  _radiobuttons;
+        QVector<QComboBox*>     _comboboxes;
 
-        bool        _configIsActive;
 };
 
 #endif // WINDOWNEXT_HPP
