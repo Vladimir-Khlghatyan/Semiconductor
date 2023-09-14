@@ -324,7 +324,7 @@ void    WindowNext::initValues(void)
 
     _JSONfilePath = this->getExecutableGrandparentDirPath() + "/JSON/state.json";
 
-    // ###################################### TITLES ###########################################
+    // ################################# COMBOBOX TEXTS ######################################
 
     // values for combobox "Number of address bits driven by master:"
     _comboTexts.push_back({"12", "16", "20", "24", "28", "32"});
@@ -360,6 +360,8 @@ void    WindowNext::initValues(void)
     _comboTexts.push_back({"User", "Option1", "Option2", "Option3"});
     
     
+    // ###################################### TITLES ###########################################
+
     // titles for sections in "Configuration" menu
     _titles.push_back({"DATA WITH CONFIGURATION", \
                        "ADDRESS CONFIGURATION", \
