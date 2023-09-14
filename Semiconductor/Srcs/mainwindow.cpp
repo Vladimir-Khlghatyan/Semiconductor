@@ -75,18 +75,16 @@ QToolButton*    MainWindow::createButton(QWidget *parent, const QString& iconPat
 // action for button "about"
 void    MainWindow::buttonAboutAction(void)
 {
-    QString about = ABOUT;
-
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("About the application"));
-    msgBox.setText(about);
+    msgBox.setText(ABOUT);
     msgBox.setIconPixmap(QPixmap(":/Imgs/info.png"));
     msgBox.addButton(QMessageBox::Ok);
     msgBox.setWindowIcon(QIcon(":/Imgs/logo.ico"));
     msgBox.exec();
 }
 
-// action for button "about"
+// action for button "next"
 void    MainWindow::buttonNextAction(void)
 {
     try
