@@ -458,7 +458,17 @@ void    WindowNext::initValues(void)
 
 void    WindowNext::saveStateToJSON(void)
 {
-    // Create a JSON object
+    // get the path of the directory containing the JSON file
+    QString JSONdirectoryPath = _JSONfilePath.left(_JSONfilePath.lastIndexOf('/'));
+    QDir    JSONdirectory(JSONdirectoryPath);
+
+    // if the directory does not exist, we create it
+    if (!JSONdirectory.exists())
+        if (JSONdirectory.mkpath(JSONdirectoryPath) == false)
+            qDebug() << "Failed to create directory.";
+
+
+    // create a JSON object
     QJsonObject jsonObj;
 
     // set values in JSON object
@@ -474,7 +484,7 @@ void    WindowNext::saveStateToJSON(void)
     {
         jsonObj["_slots1State" + QString::number(i)] = _slots1[i]->isChecked();
         jsonObj["_slots2State" + QString::number(i)] = _slots2[i]->isChecked();
-    }
+    }    
 
 
     // create a JSON document from the object
