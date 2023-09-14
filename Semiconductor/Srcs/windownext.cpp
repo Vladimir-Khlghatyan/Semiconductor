@@ -152,7 +152,7 @@ WindowNext::WindowNext(MainWindow *parent)
     }
 
 
-    // create checkboxes int sections N2 and N3 (_slots1 and _slots2)
+    // create checkboxes for sections N2 and N3 (_slots1 and _slots2)
     for (int i{}; i < 16; ++i)
     {
         QString name = "Slot " + QString::number(i) + ((i > 9) ? ":" : ":\u00A0\u00A0"); // the Unicode non-breaking space character (\u00A0)
@@ -310,7 +310,6 @@ void    WindowNext::buttonTollsAction(void)
 // actionless button
 void    WindowNext::actionlessButton(void)
 {
-
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("Actionless button"));
     msgBox.setText("<br>The button is<br>currently actionless.");
@@ -453,6 +452,7 @@ void    WindowNext::initValues(void)
     _slots2State[13] = true;
     _slots2State[15] = true;
 
+    // try to read state variables from the JSON file
     this->readStateFromJSON();
 }
 
