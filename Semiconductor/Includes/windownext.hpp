@@ -23,11 +23,11 @@ class WindowNext : public QDialog
         ~WindowNext();
 
     private:
-        void    initValues(void);
-        void    putWindowOnScreen(int windowWidth, int windowHeight);
-        void    saveStateToJSON(void);
-        void    readStateFromJSON(void);
-        QString getExecutableGrandparentDirPath(void);
+        inline void    initValues(void);
+        void            putWindowOnScreen(int windowWidth, int windowHeight);
+        void            saveStateToJSON(void);
+        void            readStateFromJSON(void);
+        QString         getExecutableGrandparentDirPath(void);
 
         QToolButton*    createButton(QWidget *parent, const QString& iconPath, \
                                     int ax, int ay, int aw, int ah, const QString& toolTip, \

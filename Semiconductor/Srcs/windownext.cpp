@@ -17,6 +17,9 @@ WindowNext::WindowNext(MainWindow *parent)
     // init values
     this->initValues();
 
+    // try to read state variables from the JSON file
+    this->readStateFromJSON();
+
     // create window and put it on the screan
     this->putWindowOnScreen(800, 700);
     this->setModal(true);
@@ -28,9 +31,12 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create buttons "save", "print" and "resize" with appropriate parameters
-    this->_buttonSave = this->createButton(_groupBoxSaveButton, ":/Imgs/save.png", 10, 3, 24, 24, "save", CUSTOM_STYLE3, &WindowNext::buttonSaveAction);
-    this->_buttonPrint = this->createButton(_groupBoxSaveButton, ":/Imgs/print.png", 50, 3, 24, 24, "print", CUSTOM_STYLE3, &WindowNext::actionlessButton);
-    this->_buttonResize = this->createButton(_groupBoxSaveButton, ":/Imgs/resize.png", 90, 3, 24, 24, "resize", CUSTOM_STYLE3, &WindowNext::actionlessButton);
+    this->_buttonSave = this->createButton(_groupBoxSaveButton, ":/Imgs/save.png", 10, 3, 24, 24, \
+                                            "save", CUSTOM_STYLE3, &WindowNext::buttonSaveAction);
+    this->_buttonPrint = this->createButton(_groupBoxSaveButton, ":/Imgs/print.png", 50, 3, 24, 24, \
+                                            "print", CUSTOM_STYLE3, &WindowNext::actionlessButton);
+    this->_buttonResize = this->createButton(_groupBoxSaveButton, ":/Imgs/resize.png", 90, 3, 24, 24, \
+                                            "resize", CUSTOM_STYLE3, &WindowNext::actionlessButton);
 
     // disable button "print
     _buttonPrint->setEnabled(false);
@@ -49,9 +55,12 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create buttons "Generate", "DRC" and "Help" with appropriate parameters
-    this->_buttonGenerate = this->createButton(_groupBoxGenerateButton, ":/Imgs/generate.png", 10, 3, 96, 24, "generate", CUSTOM_STYLE7, &WindowNext::actionlessButton);
-    this->_buttonDRC = this->createButton(_groupBoxGenerateButton, ":/Imgs/drc.png", 120, 3, 65, 24, "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
-    this->_buttonHelp = this->createButton(_groupBoxGenerateButton, ":/Imgs/help.png", 200, 3, 65, 24, "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonGenerate = this->createButton(_groupBoxGenerateButton, ":/Imgs/generate.png", 10, 3, 96, 24, \
+                                               "generate", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonDRC = this->createButton(_groupBoxGenerateButton, ":/Imgs/drc.png", 120, 3, 65, 24, \
+                                                "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonHelp = this->createButton(_groupBoxGenerateButton, ":/Imgs/help.png", 200, 3, 65, 24, \
+                                                "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
 
 
     // create blue line to switch from Configuration to Tools
@@ -319,7 +328,7 @@ void    WindowNext::actionlessButton(void)
     msgBox.exec();
 }
 
-void    WindowNext::initValues(void)
+inline void    WindowNext::initValues(void)
 {
 
     _JSONfilePath = this->getExecutableGrandparentDirPath() + "/JSON/state.json";
@@ -454,8 +463,6 @@ void    WindowNext::initValues(void)
     _slots2State[13] = true;
     _slots2State[15] = true;
 
-    // try to read state variables from the JSON file
-    this->readStateFromJSON();
 }
 
 void    WindowNext::saveStateToJSON(void)
