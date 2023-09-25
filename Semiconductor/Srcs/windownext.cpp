@@ -13,7 +13,6 @@
 WindowNext::WindowNext(MainWindow *parent)
     : QDialog(parent)
 {
-
     // init values
     this->initValues();
 
@@ -21,71 +20,43 @@ WindowNext::WindowNext(MainWindow *parent)
     this->readStateFromJSON();
 
     // create window and put it on the screan
-    this->putWindowOnScreen(800, 700);
+    this->putWindowOnScreen(800, 710);
     this->setModal(true);
 
-    // create first group box with appropriate parameters and style
-    this->_groupBoxSaveButton = new QGroupBox("", this);
-    this->_groupBoxSaveButton->setGeometry(5, 5, 790, 30);
-    this->_groupBoxSaveButton->setStyleSheet(CUSTOM_STYLE2);
 
+//     create buttons "save", "print" and "resize" with appropriate parameters
+    this->_buttonSave = this->createButton(":/Imgs/save.png", 24, 24, "save", CUSTOM_STYLE3, &WindowNext::buttonSaveAction);
+    this->_buttonPrint = this->createButton(":/Imgs/print.png", 24, 24, "print", CUSTOM_STYLE3, &WindowNext::actionlessButton);
+    this->_buttonResize = this->createButton(":/Imgs/resize.png", 24, 24, "resize", CUSTOM_STYLE3, &WindowNext::actionlessButton);
 
-    // create buttons "save", "print" and "resize" with appropriate parameters
-    this->_buttonSave = this->createButton(_groupBoxSaveButton, ":/Imgs/save.png", 10, 3, 24, 24, \
-                                            "save", CUSTOM_STYLE3, &WindowNext::buttonSaveAction);
-    this->_buttonPrint = this->createButton(_groupBoxSaveButton, ":/Imgs/print.png", 50, 3, 24, 24, \
-                                            "print", CUSTOM_STYLE3, &WindowNext::actionlessButton);
-    this->_buttonResize = this->createButton(_groupBoxSaveButton, ":/Imgs/resize.png", 90, 3, 24, 24, \
-                                            "resize", CUSTOM_STYLE3, &WindowNext::actionlessButton);
-
-    // disable button "print
+//     disable button "print
     _buttonPrint->setEnabled(false);
 
 
     // create first label with appropriate parameters and style
     this->_title = new QLabel("COREAPB3:4.2.100", this);
-    this->_title->setGeometry(10, 40, 300, 30);
     this->_title->setStyleSheet(CUSTOM_STYLE4);
 
 
-    // create second group box with appropriate parameters and style
-    this->_groupBoxGenerateButton = new QGroupBox("", this);
-    this->_groupBoxGenerateButton->setGeometry(10, 80, 780, 30);
-    this->_groupBoxGenerateButton->setStyleSheet(CUSTOM_STYLE5);
-
-
     // create buttons "Generate", "DRC" and "Help" with appropriate parameters
-    this->_buttonGenerate = this->createButton(_groupBoxGenerateButton, ":/Imgs/generate.png", 10, 3, 96, 24, \
-                                               "generate", CUSTOM_STYLE7, &WindowNext::actionlessButton);
-    this->_buttonDRC = this->createButton(_groupBoxGenerateButton, ":/Imgs/drc.png", 120, 3, 65, 24, \
-                                                "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
-    this->_buttonHelp = this->createButton(_groupBoxGenerateButton, ":/Imgs/help.png", 200, 3, 65, 24, \
-                                                "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonGenerate = this->createButton(":/Imgs/generate.png", 96, 22, "generate", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonDRC = this->createButton(":/Imgs/drc.png", 65, 22,  "drc", CUSTOM_STYLE7, &WindowNext::actionlessButton);
+    this->_buttonHelp = this->createButton(":/Imgs/help.png", 65, 22, "help", CUSTOM_STYLE7, &WindowNext::actionlessButton);
 
 
     // create blue line to switch from Configuration to Tools
     this->_blueLine = new QLabel("", this);
     this->_blueLine->setStyleSheet(CUSTOM_STYLE8);
     int ax = _configIsActive ? 20 : 150;
-    this->_blueLine->setGeometry(ax, 151, 130, 2);
+    int ay = _configIsActive ? 149 : 153;
+    this->_blueLine->setGeometry(ax, ay, 130, 2);
 
 
     // create groupBoxes for Configuration/Tools menu
     this->_groupBoxConfig = new QGroupBox("", this);
-    this->_groupBoxConfig->setGeometry(5, 154, 790, 541);
+    this->_groupBoxTools  = new QGroupBox("", this);
     this->_groupBoxConfig->setStyleSheet(CUSTOM_STYLE9);
-
-    this->_groupBoxTools = new QGroupBox("", this);
-    this->_groupBoxTools->setGeometry(5, 154, 790, 541);
     this->_groupBoxTools->setStyleSheet(CUSTOM_STYLE9);
-    if (_configIsActive) {
-        _groupBoxConfig->show();
-        _groupBoxTools->hide();
-    }
-    else {
-        _groupBoxConfig->hide();
-        _groupBoxTools->show();
-    }
 
 
     // put underConstraction.png on Tools menu groupBox
@@ -97,10 +68,8 @@ WindowNext::WindowNext(MainWindow *parent)
 
 
     // create buttons "Configuration" and "Tools" with appropriate parameters
-    this->_buttonConfig = this->createButton(this, "", 20, 120, 130, 30, "configuration", CUSTOM_STYLE10, &WindowNext::buttonConfigAction);
-    _buttonConfig->setText("Configuration");
-    this->_buttonTools = this->createButton(this, "", 150, 120, 130, 30, "tools", CUSTOM_STYLE10, &WindowNext::buttonTollsAction);
-    _buttonTools->setText("Tools");
+    this->_buttonConfig = this->createButton("", 130, 30, "    Configuration", CUSTOM_STYLE10, &WindowNext::buttonConfigAction);
+    this->_buttonTools = this->createButton("", 130, 30, "\u00A0\u00A0\u00A0\u00A0\u00A0Tools", CUSTOM_STYLE10, &WindowNext::buttonTollsAction);
 
 
     // create section titles for 'Configuration' menu
@@ -198,6 +167,54 @@ WindowNext::WindowNext(MainWindow *parent)
                 });
     }
 
+    // create QGridLayout and put on the window
+    this->_mainGridLayout = new QGridLayout;
+    this->setLayout(_mainGridLayout);
+
+    // create special backgrounds
+    _bg1 = new QLabel;
+    _bg2 = new QLabel;
+    _bg1->setStyleSheet(CUSTOM_STYLE2);
+    _bg2->setStyleSheet(CUSTOM_STYLE5);
+
+    _mainGridLayout->setRowMinimumHeight(0, 40);
+    _mainGridLayout->setRowMinimumHeight(1, 30);
+    _mainGridLayout->setRowMinimumHeight(2, 30);
+    _mainGridLayout->setRowMinimumHeight(3, 35);
+    _mainGridLayout->setRowMinimumHeight(4, 550);
+
+    _mainGridLayout->addWidget(_bg1, 0, 0, 1, 20);
+    _mainGridLayout->setRowMinimumHeight(0, 30);
+    _mainGridLayout->addWidget(_buttonSave, 0, 0, 1, 1, Qt::AlignCenter);
+    _mainGridLayout->addWidget(_buttonPrint, 0, 1, 1, 1, Qt::AlignCenter);
+    _mainGridLayout->addWidget(_buttonResize, 0, 2, 1, 1, Qt::AlignCenter);
+    _buttonSave->raise();
+    _buttonPrint->raise();
+    _buttonResize->raise();
+
+    _mainGridLayout->addWidget(_title, 1, 0, 1, 20, Qt::AlignLeft);
+
+    _mainGridLayout->addWidget(_bg2, 2, 0, 1, 20);
+    _mainGridLayout->addWidget(_buttonGenerate, 2, 0, 1, 3, Qt::AlignCenter);
+    _mainGridLayout->addWidget(_buttonDRC, 2, 3, 1, 2, Qt::AlignCenter);
+    _mainGridLayout->addWidget(_buttonHelp, 2, 5, 1, 2, Qt::AlignCenter);
+    _buttonGenerate->raise();
+    _buttonDRC->raise();
+    _buttonHelp->raise();
+
+    _mainGridLayout->addWidget(_buttonConfig, 3, 0, 1, 3, Qt::AlignCenter);
+    _mainGridLayout->addWidget(_buttonTools, 3, 3, 1, 3, Qt::AlignCenter);
+
+    _mainGridLayout->addWidget(_groupBoxConfig, 4, 0, 1, 20);
+    _mainGridLayout->addWidget(_groupBoxTools, 4, 0, 1, 20);
+    if (_configIsActive) {
+        _groupBoxConfig->show();
+        _groupBoxTools->hide();
+    }
+    else {
+        _groupBoxConfig->hide();
+        _groupBoxTools->show();
+    }
 }
 
 WindowNext::~WindowNext()
@@ -205,17 +222,15 @@ WindowNext::~WindowNext()
     delete _buttonSave;
     delete _buttonPrint;
     delete _buttonResize;
-    delete _groupBoxSaveButton;
+
     delete _title;
     delete _buttonGenerate;
     delete _buttonDRC;
     delete _buttonHelp;
-    delete _groupBoxGenerateButton;
     delete _buttonConfig;
     delete _buttonTools;
     delete _blueLine;
     delete _underConstraction;
-    delete _groupBoxTools;
 
     for (auto title : _sectionTitles)
         delete title;
@@ -239,6 +254,10 @@ WindowNext::~WindowNext()
         delete groupBox;
 
     delete _groupBoxConfig;
+    delete _groupBoxTools;
+    delete _bg1;
+    delete _bg2;
+    delete _mainGridLayout;
 
 }
 
@@ -263,20 +282,20 @@ void    WindowNext::putWindowOnScreen(int windowWidth, int windowHeight)
 }
 
 // create new button
-QToolButton*    WindowNext::createButton(QWidget *parent, const QString& iconPath, \
-                                      int ax, int ay, int aw, int ah, const QString& toolTip, \
+QToolButton*    WindowNext::createButton(const QString& iconPath, \
+                                      int aw, int ah, const QString& toolTip, \
                                       const QString& style, void (WindowNext::*action)(void))
 {
-    QToolButton *button = new QToolButton(parent);
+    QToolButton *button = new QToolButton(this);
     if (iconPath != "")
     {
         button->setIcon(QIcon(iconPath));
         button->setIconSize(QSize(aw, ah));
     }
     button->setCursor(Qt::PointingHandCursor);
+    button->setText(toolTip);
     button->setToolTip(toolTip);
     button->setStyleSheet(style);
-    button->setGeometry(ax, ay, aw, ah);
     button->show();
     connect(button, &QToolButton::clicked, this,
             [=](void) {
@@ -298,7 +317,7 @@ void    WindowNext::buttonConfigAction(void)
     if (_configIsActive == false)
     {
         _configIsActive = true;
-        _blueLine->setGeometry(20, 151, 130, 2);
+        _blueLine->setGeometry(20, 149, 130, 2);
         _groupBoxConfig->show();
         _groupBoxTools->hide();
     }
@@ -310,7 +329,7 @@ void    WindowNext::buttonTollsAction(void)
     if (_configIsActive == true)
     {
         _configIsActive = false;
-        _blueLine->setGeometry(150, 151, 130, 2);
+        _blueLine->setGeometry(150, 153, 130, 2);
         _groupBoxConfig->hide();
         _groupBoxTools->show();
     }
@@ -396,10 +415,10 @@ inline void    WindowNext::initValues(void)
                       {20, 322, 400, 25}});
     
     // coordinates for groupBoxes in "Configuration" manue
-    _coord.push_back({{1,  27, 787,  30}, \
-                      {1,  84, 787,  90}, \
-                      {1, 201, 787, 120}, \
-                      {1, 348, 787, 191}});
+    _coord.push_back({{1,  27, 776,  30}, \
+                      {1,  84, 776,  90}, \
+                      {1, 201, 776, 120}, \
+                      {1, 348, 776, 191}});
     
     // coordinates for description texts in 'Configuration' menu
     _coord.push_back({{30,   2, 180, 26}, \

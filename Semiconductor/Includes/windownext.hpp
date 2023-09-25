@@ -4,6 +4,7 @@
 # include <QDialog>
 # include <QWidget>
 # include <QScreen>
+# include <QGridLayout>
 # include <QGroupBox>
 # include <QLabel>
 # include <QApplication>
@@ -23,14 +24,14 @@ class WindowNext : public QDialog
         ~WindowNext();
 
     private:
-        inline void    initValues(void);
+        inline void     initValues(void);
         void            putWindowOnScreen(int windowWidth, int windowHeight);
         void            saveStateToJSON(void);
         void            readStateFromJSON(void);
         QString         getExecutableGrandparentDirPath(void);
 
-        QToolButton*    createButton(QWidget *parent, const QString& iconPath, \
-                                    int ax, int ay, int aw, int ah, const QString& toolTip, \
+        QToolButton*    createButton(const QString& iconPath, \
+                                    int aw, int ah, const QString& toolTip, \
                                   const QString& style, void (WindowNext::*action)(void));        
 
     private slots:
@@ -49,7 +50,10 @@ class WindowNext : public QDialog
         QVector<bool>   _slots2State;
 
         // initial groupbox with buttons 'Save', 'Print' and 'Resize'
-        QGroupBox   *_groupBoxSaveButton;
+        QGridLayout *_mainGridLayout;
+        QLabel      *_bg1;
+        QLabel      *_bg2;
+
         QToolButton *_buttonSave;
         QToolButton *_buttonPrint;
         QToolButton *_buttonResize;
@@ -58,7 +62,6 @@ class WindowNext : public QDialog
         QLabel      *_title;
 
         // groupbox with buttons 'Generate', 'DRC' and 'Help'
-        QGroupBox   *_groupBoxGenerateButton;
         QToolButton *_buttonGenerate;
         QToolButton *_buttonDRC;
         QToolButton *_buttonHelp;
